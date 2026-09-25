@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKDSE S5 Math - Transformation of Functions</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- KaTeX CSS and JS for Mathematical Expressions -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    
+    <!-- Canvas Confetti for High Scores -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Times+New+Roman&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .katex-display {
+            margin: 0.4em 0 !important;
+        }
+        .dse-font {
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .graph-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            max-height: 380px;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-indigo-950 text-white shadow-md sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="confirmGoHome()">
+                <div class="bg-indigo-600 p-2 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-chart-line text-xl text-amber-300"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight tracking-wide">HKDSE Math S5</h1>
+                    <p class="text-xs text-indigo-200">Transformation of Functions & Graphs (Paper 1 & 2)</p>
+                </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <button onclick="confirmGoHome()" class="px-3 py-1.5 text-xs sm:text-sm font-semibold bg-indigo-900 hover:bg-indigo-800 text-indigo-100 rounded-lg transition-colors flex items-center space-x-1.5 border border-indigo-700 shadow-sm">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="hidden sm:inline">Home</span>
+                </button>
+                
+                <button onclick="switchView('sandbox-view')" class="px-3 py-1.5 text-xs sm:text-sm font-semibold bg-amber-500 hover:bg-amber-400 text-indigo-950 rounded-lg transition-colors flex items-center space-x-1.5 shadow-sm">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span class="hidden sm:inline">Visual Sandbox</span>
+                </button>
+
+                <button onclick="switchView('cheatsheet-view')" class="px-3 py-1.5 text-xs sm:text-sm font-semibold bg-indigo-800 hover:bg-indigo-700 text-indigo-100 rounded-lg transition-colors flex items-center space-x-1.5 shadow-sm">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span class="hidden sm:inline">UT Guide & Rules</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+        
+        <!-- HOME / LANDING PAGE VIEW -->
+        <section id="home-view" class="space-y-8">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 rounded-2xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10 max-w-3xl space-y-4">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="inline-block px-3 py-1 bg-amber-400 text-indigo-950 text-xs font-extrabold uppercase tracking-wider rounded-full">HKUGAC S5 UT & DSE Standard</span>
+                        <span class="inline-block px-3 py-1 bg-indigo-700 text-indigo-100 text-xs font-semibold rounded-full">Section A & B Questions</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight">Master HKDSE Function Transformations</h2>
+                    <p class="text-indigo-200 text-sm sm:text-base leading-relaxed">
+                        Comprehensive practice for <strong>Quadratic, Linear, Logarithmic, Exponential, Sine, and Cosine</strong> functions. Features realistic DSE-style coordinate graphs with clearly labeled $y=f(x)$ and $y=g(x)$ curves, detailed step-by-step solutions, and order-of-transformation analysis.
+                    </p>
+                </div>
+                <i class="fa-solid fa-wave-square absolute right-[-20px] bottom-[-30px] text-indigo-600/20 text-[220px] pointer-events-none"></i>
+            </div>
+
+            <!-- Function Categories Badge Bar -->
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs font-semibold text-slate-700">
+                <span class="text-indigo-950 font-bold uppercase tracking-wider text-[11px]"><i class="fa-solid fa-cubes text-amber-500 mr-1.5"></i> All 6 Core Function Types Supported:</span>
+                <span class="px-3 py-1 bg-slate-100 rounded-lg text-slate-800 border border-slate-200"><i class="fa-solid fa-chart-line text-indigo-600 mr-1"></i> Quadratic</span>
+                <span class="px-3 py-1 bg-slate-100 rounded-lg text-slate-800 border border-slate-200"><i class="fa-solid fa-arrow-trend-up text-indigo-600 mr-1"></i> Linear</span>
+                <span class="px-3 py-1 bg-slate-100 rounded-lg text-slate-800 border border-slate-200"><i class="fa-solid fa-chart-area text-indigo-600 mr-1"></i> Logarithmic</span>
+                <span class="px-3 py-1 bg-slate-100 rounded-lg text-slate-800 border border-slate-200"><i class="fa-solid fa-bolt text-indigo-600 mr-1"></i> Exponential</span>
+                <span class="px-3 py-1 bg-slate-100 rounded-lg text-slate-800 border border-slate-200"><i class="fa-solid fa-wave-square text-indigo-600 mr-1"></i> Sine & Cosine</span>
+            </div>
+
+            <!-- Mode & Topic Focus Selection Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Practice Mode Setup Card -->
+                <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div class="space-y-5">
+                        <div class="flex items-center space-x-3 border-b border-slate-100 pb-4">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-lg">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">Targeted DSE Transformation Drill</h3>
+                                <p class="text-xs text-slate-500">Filter by function type or transformation concept.</p>
+                            </div>
+                        </div>
+
+                        <!-- FUNCTION TYPE FILTER -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">
+                                1. Select Function Family:
+                            </label>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="func-filter">
+                                <button onclick="selectFuncFilter('all')" id="func-btn-all" class="func-btn p-2.5 rounded-lg border-2 border-indigo-600 bg-indigo-50 text-indigo-950 font-semibold text-xs text-center transition-all">All Functions</button>
+                                <button onclick="selectFuncFilter('quadratic')" id="func-btn-quadratic" class="func-btn p-2.5 rounded-lg border-2 border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:border-indigo-300 transition-all">Quadratic</button>
+                                <button onclick="selectFuncFilter('linear')" id="func-btn-linear" class="func-btn p-2.5 rounded-lg border-2 border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:border-indigo-300 transition-all">Linear</button>
+                                <button onclick="selectFuncFilter('logarithmic')" id="func-btn-logarithmic" class="func-btn p-2.5 rounded-lg border-2 border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:border-indigo-300 transition-all">Logarithmic</button>
+                                <button onclick="selectFuncFilter('exponential')" id="func-btn-exponential" class="func-btn p-2.5 rounded-lg border-2 border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:border-indigo-300 transition-all">Exponential</button>
+                                <button onclick="selectFuncFilter('trig')" id="func-btn-trig" class="func-btn p-2.5 rounded-lg border-2 border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:border-indigo-300 transition-all">Sine & Cosine</button>
+                            </div>
+                        </div>
+
+                        <!-- TRANSFORMATION TYPE FILTER -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">
+                                2. Select Transformation Focus:
+                            </label>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="topic-selector">
+                                <button onclick="selectTopic('all')" id="topic-btn-all" class="topic-btn p-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 text-left transition-all flex items-start space-x-3">
+                                    <div class="p-2 rounded-lg bg-indigo-600 text-white text-xs mt-0.5"><i class="fa-solid fa-layer-group"></i></div>
+                                    <div>
+                                        <div class="font-bold text-sm text-indigo-950">All Transformations</div>
+                                        <div class="text-xs text-slate-500">Shifts, Scaling, Reflection & Order</div>
+                                    </div>
+                                </button>
+
+                                <button onclick="selectTopic('translation')" id="topic-btn-translation" class="topic-btn p-3 rounded-xl border-2 border-slate-200 hover:border-indigo-300 bg-white text-left transition-all flex items-start space-x-3">
+                                    <div class="p-2 rounded-lg bg-slate-100 text-slate-600 text-xs mt-0.5"><i class="fa-solid fa-arrows-up-down-left-right"></i></div>
+                                    <div>
+                                        <div class="font-bold text-sm text-slate-800">Translations ($f(x\pm h)\pm k$)</div>
+                                        <div class="text-xs text-slate-500">Horizontal & vertical shifts</div>
+                                    </div>
+                                </button>
+
+                                <button onclick="selectTopic('scaling')" id="topic-btn-scaling" class="topic-btn p-3 rounded-xl border-2 border-slate-200 hover:border-indigo-300 bg-white text-left transition-all flex items-start space-x-3">
+                                    <div class="p-2 rounded-lg bg-slate-100 text-slate-600 text-xs mt-0.5"><i class="fa-solid fa-expand"></i></div>
+                                    <div>
+                                        <div class="font-bold text-sm text-slate-800">Scaling & Period ($a\cdot f(bx)$)</div>
+                                        <div class="text-xs text-slate-500">Amplitude, period & stretch factors</div>
+                                    </div>
+                                </button>
+
+                                <button onclick="selectTopic('reflection')" id="topic-btn-reflection" class="topic-btn p-3 rounded-xl border-2 border-slate-200 hover:border-indigo-300 bg-white text-left transition-all flex items-start space-x-3">
+                                    <div class="p-2 rounded-lg bg-slate-100 text-slate-600 text-xs mt-0.5"><i class="fa-solid fa-flip-horizontal"></i></div>
+                                    <div>
+                                        <div class="font-bold text-sm text-slate-800">Reflections & Order Traps</div>
+                                        <div class="text-xs text-slate-500">$-f(x)$, $f(-x)$ & sequential order</div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Question Quantity Picker -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">3. Question Count:</label>
+                            <div class="flex space-x-3">
+                                <button onclick="selectQuestionCount(10)" class="count-btn px-4 py-2 text-sm font-semibold rounded-lg border border-indigo-600 bg-indigo-600 text-white shadow-sm">10 Questions</button>
+                                <button onclick="selectQuestionCount(20)" class="count-btn px-4 py-2 text-sm font-semibold rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50">20 Questions</button>
+                                <button onclick="selectQuestionCount(30)" class="count-btn px-4 py-2 text-sm font-semibold rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50">30 Questions</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="startPracticeMode()" class="mt-6 w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/20 transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-play"></i>
+                        <span>Start Interactive Practice Drill</span>
+                    </button>
+                </div>
+
+                <!-- Exam Mode & Visual Sandbox Quick Cards -->
+                <div class="space-y-6">
+                    <!-- DSE Exam Mode Card -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4 flex flex-col justify-between hover:shadow-md transition-shadow">
+                        <div>
+                            <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
+                                <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-lg">
+                                    <i class="fa-solid fa-stopwatch"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-800">35-Min DSE Exam Paper</h3>
+                                    <p class="text-xs text-slate-500">Formal Examination Simulation</p>
+                                </div>
+                            </div>
+                            <ul class="text-xs text-slate-600 space-y-2.5 mt-4">
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-emerald-500"></i><span>20 DSE Paper 1 & Paper 2 Questions</span></li>
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-emerald-500"></i><span>Covers Quadratics, Log, Exp, Sin/Cos</span></li>
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-emerald-500"></i><span>Clear $y=f(x)$ vs $y=g(x)$ graph labels</span></li>
+                                <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-emerald-500"></i><span>Full marking scheme & analytics</span></li>
+                            </ul>
+                        </div>
+                        <button onclick="startExamMode()" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-indigo-950 font-bold rounded-xl shadow-md transition-all flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-file-signature"></i>
+                            <span>Start Timed Exam</span>
+                        </button>
+                    </div>
+
+                    <!-- Interactive Visual Sandbox Quick Link -->
+                    <div class="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-2xl p-6 text-white shadow-sm space-y-3">
+                        <div class="flex items-center space-x-2 text-amber-400 text-xs font-bold uppercase tracking-wider">
+                            <i class="fa-solid fa-sliders"></i>
+                            <span>Visual Sandbox</span>
+                        </div>
+                        <h4 class="font-bold text-base">Real-time Graph Transformer</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Adjust shift parameters ($h, k$), scale factors ($a, b$), and reflections live on canvas to see $y=f(x)$ and $y=g(x)$ transform instantly.
+                        </p>
+                        <button onclick="switchView('sandbox-view')" class="w-full py-2 bg-indigo-700 hover:bg-indigo-600 text-white font-semibold text-xs rounded-lg transition-colors">
+                            Launch Sandbox Tool <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRACTICE / EXAM DRILL VIEW -->
+        <section id="drill-view" class="hidden space-y-6">
+            <!-- Header Bar with Progress & Timer -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-4">
+                    <span id="drill-mode-badge" class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-bold uppercase tracking-wider">
+                        Practice Mode
+                    </span>
+                    <span class="text-sm font-semibold text-slate-700">
+                        Question <span id="current-q-num" class="text-indigo-600 font-bold">1</span> of <span id="total-q-num">10</span>
+                    </span>
+                </div>
+
+                <div class="flex items-center space-x-6">
+                    <div id="exam-timer-container" class="hidden flex items-center space-x-2 bg-amber-50 text-amber-800 px-3 py-1 rounded-lg border border-amber-200 text-xs font-bold">
+                        <i class="fa-solid fa-clock"></i>
+                        <span id="timer-display">35:00</span>
+                    </div>
+                    <div class="text-xs font-semibold text-slate-500">
+                        Score: <span id="live-score" class="text-emerald-600 font-bold">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question & Canvas Diagram Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left Column: Graph Visualizer Canvas (lg:col-span-6) -->
+                <div class="lg:col-span-6 bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">
+                                <i class="fa-solid fa-chart-area mr-1 text-indigo-600"></i> DSE Diagram Figure
+                            </span>
+                            <div class="flex items-center space-x-3 text-[11px] font-semibold">
+                                <span class="flex items-center text-indigo-700"><span class="w-3 h-0.5 bg-indigo-600 inline-block mr-1"></span> $y = f(x)$</span>
+                                <span class="flex items-center text-rose-600"><span class="w-3 h-0.5 bg-rose-500 inline-block mr-1"></span> $y = g(x)$</span>
+                            </div>
+                        </div>
+
+                        <!-- Canvas HTML Container -->
+                        <div class="graph-container bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-center relative overflow-hidden">
+                            <canvas id="drill-canvas" class="w-full h-full block"></canvas>
+                        </div>
+                    </div>
+
+                    <p class="text-[11px] text-slate-400 text-center italic mt-2">
+                        * Note: Curves are clearly labeled $y=f(x)$ (original) and $y=g(x)$ (transformed).
+                    </p>
+                </div>
+
+                <!-- Right Column: Question & Multiple Choice Options (lg:col-span-6) -->
+                <div class="lg:col-span-6 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span id="question-category-tag" class="text-xs font-bold text-indigo-600 uppercase tracking-wider bg-indigo-50 px-2.5 py-1 rounded-md">
+                                Quadratic Transformation
+                            </span>
+                            <span class="text-xs font-semibold text-slate-400 dse-font">Paper 2 MC</span>
+                        </div>
+
+                        <!-- Question Text Container -->
+                        <div id="question-text" class="text-sm sm:text-base font-medium text-slate-800 leading-relaxed space-y-2">
+                            <!-- Injected dynamically -->
+                        </div>
+
+                        <!-- Options Container -->
+                        <div id="options-container" class="space-y-2.5 pt-2">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Bottom Action Controls -->
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <button onclick="toggleExplanationModal()" id="explain-btn" class="hidden px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs rounded-xl transition-colors flex items-center space-x-1.5">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <span>View Detailed HKDSE Solution</span>
+                        </button>
+
+                        <button onclick="nextQuestion()" id="next-btn" class="ml-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center space-x-2">
+                            <span>Next Question</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISUAL SANDBOX VIEW -->
+        <section id="sandbox-view" class="hidden space-y-6">
+            <div class="bg-indigo-950 text-white p-6 rounded-2xl shadow-md flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-amber-400"></i> Interactive Graph Transformation Sandbox
+                    </h2>
+                    <p class="text-xs text-indigo-200 mt-1">
+                        Select a base function family $f(x)$, then adjust transformation sliders to see how $g(x)$ behaves!
+                    </p>
+                </div>
+                <button onclick="resetSandbox()" class="px-4 py-2 bg-indigo-800 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg border border-indigo-600 transition-colors">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> Reset Parameters
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Sandbox Canvas (lg:col-span-7) -->
+                <div class="lg:col-span-7 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-600">
+                            Coordinate System Visualizer
+                        </span>
+                        <div class="text-xs font-semibold flex items-center space-x-4">
+                            <span class="text-indigo-700"><i class="fa-solid fa-minus text-indigo-600"></i> $y = f(x)$</span>
+                            <span class="text-rose-600"><i class="fa-solid fa-minus text-rose-500"></i> $y = g(x)$</span>
+                        </div>
+                    </div>
+
+                    <div class="graph-container bg-slate-50 rounded-xl border border-slate-200 relative overflow-hidden flex items-center justify-center" style="max-height: 420px;">
+                        <canvas id="sandbox-canvas" class="w-full h-full block"></canvas>
+                    </div>
+
+                    <!-- Live Dynamic Equation Display -->
+                    <div class="mt-4 p-4 bg-slate-900 text-white rounded-xl flex flex-wrap items-center justify-around gap-4 text-xs font-mono">
+                        <div>
+                            <span class="text-indigo-400 font-bold">Base $f(x)$:</span>
+                            <span id="sandbox-fx-katex" class="ml-1 text-sm"></span>
+                        </div>
+                        <div class="h-4 w-px bg-slate-700 hidden sm:block"></div>
+                        <div>
+                            <span class="text-rose-400 font-bold">Transformed $g(x)$:</span>
+                            <span id="sandbox-gx-katex" class="ml-1 text-sm"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sandbox Sliders & Controls (lg:col-span-5) -->
+                <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+                    <!-- Function Family Selector -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Base Function Type:</label>
+                        <select id="sandbox-func-type" onchange="updateSandbox()" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <option value="quadratic">Quadratic: f(x) = x²</option>
+                            <option value="linear">Linear: f(x) = 2x + 1</option>
+                            <option value="logarithmic">Logarithmic: f(x) = log₂(x)</option>
+                            <option value="exponential">Exponential: f(x) = 2ˣ</option>
+                            <option value="sine">Sine: f(x) = sin(x)</option>
+                            <option value="cosine">Cosine: f(x) = cos(x)</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-4 pt-2 border-t border-slate-100">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Transformation Sliders:</h4>
+                        
+                        <!-- Horizontal Shift (h) -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-700">Horizontal Shift ($h$): $f(x - h)$</span>
+                                <span id="val-h" class="text-indigo-600 font-bold">0</span>
+                            </div>
+                            <input type="range" id="slider-h" min="-5" max="5" step="0.5" value="0" oninput="updateSandbox()" class="w-full accent-indigo-600 cursor-pointer">
+                            <p class="text-[10px] text-slate-400">+h shifts RIGHT, -h shifts LEFT</p>
+                        </div>
+
+                        <!-- Vertical Shift (k) -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-700">Vertical Shift ($k$): $f(x) + k$</span>
+                                <span id="val-k" class="text-indigo-600 font-bold">0</span>
+                            </div>
+                            <input type="range" id="slider-k" min="-5" max="5" step="0.5" value="0" oninput="updateSandbox()" class="w-full accent-indigo-600 cursor-pointer">
+                            <p class="text-[10px] text-slate-400">+k shifts UP, -k shifts DOWN</p>
+                        </div>
+
+                        <!-- Vertical Stretch / Reflection (a) -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-700">Vertical Scale ($a$): $a \cdot f(x)$</span>
+                                <span id="val-a" class="text-indigo-600 font-bold">1</span>
+                            </div>
+                            <input type="range" id="slider-a" min="-3" max="3" step="0.5" value="1" oninput="updateSandbox()" class="w-full accent-indigo-600 cursor-pointer">
+                            <p class="text-[10px] text-slate-400">a &lt; 0 reflects across x-axis</p>
+                        </div>
+
+                        <!-- Horizontal Stretch / Reflection (b) -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-700">Horizontal Scale ($b$): $f(b \cdot x)$</span>
+                                <span id="val-b" class="text-indigo-600 font-bold">1</span>
+                            </div>
+                            <input type="range" id="slider-b" min="-3" max="3" step="0.5" value="1" oninput="updateSandbox()" class="w-full accent-indigo-600 cursor-pointer">
+                            <p class="text-[10px] text-slate-400">b &lt; 0 reflects across y-axis. Scale factor = 1/b</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEATSHEET & UT PAST PAPER REFERENCE VIEW -->
+        <section id="cheatsheet-view" class="hidden space-y-6">
+            <div class="bg-indigo-950 text-white p-6 rounded-2xl shadow-md">
+                <h2 class="text-2xl font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-amber-400"></i> HKUGA UT & HKDSE Transformation Reference Guide
+                </h2>
+                <p class="text-xs text-indigo-200 mt-1">
+                    Key rules, transformation order guidelines, and traps extracted directly from school Unit Tests.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Rule 1: Vertical vs Horizontal Shifts -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex items-center space-x-2 text-indigo-700 font-bold text-sm">
+                        <i class="fa-solid fa-arrows-up-down-left-right"></i>
+                        <span>1. Translations (Shifts)</span>
+                    </div>
+                    <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
+                        <li><strong>$y = f(x) + k$:</strong> Shift <strong>UP</strong> by $k$ units ($k>0$).</li>
+                        <li><strong>$y = f(x) - k$:</strong> Shift <strong>DOWN</strong> by $k$ units ($k>0$).</li>
+                        <li><strong>$y = f(x - h)$:</strong> Shift <strong>RIGHT</strong> by $h$ units ($h>0$).</li>
+                        <li><strong>$y = f(x + h)$:</strong> Shift <strong>LEFT</strong> by $h$ units ($h>0$).</li>
+                    </ul>
+                </div>
+
+                <!-- Rule 2: Reflections -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex items-center space-x-2 text-rose-600 font-bold text-sm">
+                        <i class="fa-solid fa-flip-horizontal"></i>
+                        <span>2. Reflections</span>
+                    </div>
+                    <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
+                        <li><strong>$y = -f(x)$:</strong> Reflected in the <strong>x-axis</strong> ($y$-values change sign).</li>
+                        <li><strong>$y = f(-x)$:</strong> Reflected in the <strong>y-axis</strong> ($x$-values change sign).</li>
+                    </ul>
+                </div>
+
+                <!-- Rule 3: Scaling & Stretch Factors -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex items-center space-x-2 text-amber-600 font-bold text-sm">
+                        <i class="fa-solid fa-expand"></i>
+                        <span>3. Scaling & Period</span>
+                    </div>
+                    <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
+                        <li><strong>$y = a \cdot f(x)$:</strong> Vertically stretched by factor $a$ (Amplitude changes for trig).</li>
+                        <li><strong>$y = f(b \cdot x)$:</strong> Horizontally compressed by factor $\frac{1}{b}$ (Period becomes $\frac{360^\circ}{b}$).</li>
+                    </ul>
+                </div>
+
+                <!-- UT Past Paper Trap: Order of Transformation -->
+                <div class="md:col-span-2 lg:col-span-3 bg-amber-50 border-2 border-amber-300 rounded-2xl p-6 space-y-3">
+                    <div class="flex items-center space-x-2 text-amber-900 font-bold text-base">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
+                        <span>HKUGA School UT Trap: Does Order Matter?</span>
+                    </div>
+                    <p class="text-xs text-amber-900 leading-relaxed">
+                        Consider obtaining $g(x) = f(2x + 6)$ from $f(x)$:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono bg-white p-4 rounded-xl border border-amber-200">
+                        <div>
+                            <span class="font-bold text-emerald-700">Method A (Factorize first): $f(2(x+3))$</span>
+                            <ol class="list-decimal list-inside text-slate-700 mt-1 space-y-1">
+                                <li>Translate LEFT by 3 units: $f(x+3)$</li>
+                                <li>Compress horizontally to $\frac{1}{2}$: $f(2x+3)$</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <span class="font-bold text-indigo-700">Method B (Horizontal scale first): $f(2x)$</span>
+                            <ol class="list-decimal list-inside text-slate-700 mt-1 space-y-1">
+                                <li>Compress horizontally to $\frac{1}{2}$: $f(2x)$</li>
+                                <li>Translate LEFT by 6 units: $f(2(x+3)) = f(2x+6)$</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOLUTION EXPLANATION MODAL -->
+        <div id="solution-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar p-6 space-y-4 shadow-2xl relative">
+                <button onclick="toggleExplanationModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div class="flex items-center space-x-2 text-indigo-600 font-bold text-lg border-b border-slate-100 pb-3">
+                    <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                    <span>Detailed DSE Marking Explanation</span>
+                </div>
+
+                <div id="modal-solution-content" class="text-sm text-slate-700 space-y-3 leading-relaxed">
+                    <!-- Solution content injected dynamically -->
+                </div>
+
+                <button onclick="toggleExplanationModal()" class="w-full py-2.5 bg-indigo-600 text-white font-bold rounded-xl text-xs hover:bg-indigo-700 transition-colors">
+                    Close Solution
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-center py-4 text-xs border-t border-slate-800">
+        <p>HKDSE Senior Secondary Mathematics S5 Interactive Transformation Application</p>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Global App State
+        let currentView = 'home-view';
+        let selectedFuncFilter = 'all';
+        let selectedTopic = 'all';
+        let selectedQCount = 10;
+        let isExamMode = false;
+        
+        let questionsList = [];
+        let currentQIndex = 0;
+        let userAnswers = {};
+        let score = 0;
+        
+        let examTimerInterval = null;
+        let examTimeRemaining = 35 * 60; // 35 minutes
+
+        // Master Question Bank (Quadratic, Linear, Logarithmic, Exponential, Sine, Cosine)
+        const masterQuestions = [
+            // --- QUADRATIC QUESTIONS ---
+            {
+                id: 'q_quad_1',
+                funcType: 'quadratic',
+                topic: 'reflection',
+                category: 'Quadratic Reflection & Scale',
+                questionText: 'The figure shows the graphs of $y = f(x)$ and $y = g(x)$. If $f(x) = x^2 - 4x$, which of the following expressions represents $g(x)$?',
+                options: [
+                    'A. $g(x) = -f(x)$',
+                    'B. $g(x) = f(-x)$',
+                    'C. $g(x) = f(x - 4)$',
+                    'D. $g(x) = f(x + 4)$'
+                ],
+                correctIndex: 0,
+                solution: 'The graph of $y = g(x)$ is the reflection of $y = f(x)$ in the x-axis. Therefore, $g(x) = -f(x) = -(x^2 - 4x) = -x^2 + 4x$.',
+                drawParams: {
+                    type: 'quadratic',
+                    f: { a: 0.8, h: 2, k: -3.2 },
+                    g: { a: -0.8, h: 2, k: 3.2 },
+                    xDomain: [-2, 6],
+                    yDomain: [-5, 5]
+                }
+            },
+            {
+                id: 'q_quad_2',
+                funcType: 'quadratic',
+                topic: 'translation',
+                category: 'Quadratic Translation',
+                questionText: 'The graph of $y = f(x) = (x-1)^2 - 2$ is translated to the left by 3 units and upwards by 4 units to become $y = g(x)$. Find $g(x)$.',
+                options: [
+                    'A. $g(x) = (x + 2)^2 + 2$',
+                    'B. $g(x) = (x - 4)^2 + 2$',
+                    'C. $g(x) = (x + 2)^2 - 6$',
+                    'D. $g(x) = (x - 4)^2 - 6$'
+                ],
+                correctIndex: 0,
+                solution: '1. Shift LEFT by 3 units: replace $x$ with $x + 3$, giving $f(x+3) = ((x+3)-1)^2 - 2 = (x+2)^2 - 2$.<br>2. Shift UPWARDS by 4 units: add $4$, giving $g(x) = (x+2)^2 - 2 + 4 = (x+2)^2 + 2$.',
+                drawParams: {
+                    type: 'quadratic',
+                    f: { a: 1, h: 1, k: -2 },
+                    g: { a: 1, h: -2, k: 2 },
+                    xDomain: [-5, 5],
+                    yDomain: [-4, 6]
+                }
+            },
+
+            // --- EXPONENTIAL QUESTIONS ---
+            {
+                id: 'q_exp_1',
+                funcType: 'exponential',
+                topic: 'reflection',
+                category: 'Exponential Reflection & Shift',
+                questionText: 'The figure shows $y = f(x) = 3^x$ and $y = g(x)$. If $g(x)$ is obtained by reflecting $y = f(x)$ in the y-axis and then shifting downwards by 1 unit, find the value of $g(1)$.',
+                options: [
+                    'A. $-\\frac{2}{3}$',
+                    'B. $2$',
+                    'C. $-4$',
+                    'D. $0$'
+                ],
+                correctIndex: 0,
+                solution: '1. Reflection in y-axis: replace $x$ with $-x$, giving $3^{-x}$.<br>2. Shift DOWNWARDS by 1 unit: subtract $1$, giving $g(x) = 3^{-x} - 1$.<br>3. Substituting $x = 1$: $g(1) = 3^{-1} - 1 = \\frac{1}{3} - 1 = -\\frac{2}{3}$.',
+                drawParams: {
+                    type: 'exponential',
+                    f: { base: 3, scale: 1, h: 0, k: 0, expSign: 1 },
+                    g: { base: 3, scale: 1, h: 0, k: -1, expSign: -1 },
+                    xDomain: [-3, 3],
+                    yDomain: [-3, 5]
+                }
+            },
+            {
+                id: 'q_exp_2',
+                funcType: 'exponential',
+                topic: 'translation',
+                category: 'Exponential Translation',
+                questionText: 'The figure shows $y = f(x) = 2^x$ and $y = g(x)$. If $y = g(x)$ is obtained by shifting $y = f(x)$ right by 2 units and down by 1 unit, what is $g(0)$?',
+                options: [
+                    'A. $-0.75$',
+                    'B. $0.25$',
+                    'C. $3$',
+                    'D. $-1$'
+                ],
+                correctIndex: 0,
+                solution: 'The equation of $g(x)$ is $g(x) = 2^{x-2} - 1$. Substituting $x = 0$ gives $g(0) = 2^{-2} - 1 = \\frac{1}{4} - 1 = -0.75$.',
+                drawParams: {
+                    type: 'exponential',
+                    f: { base: 2, scale: 1, h: 0, k: 0, expSign: 1 },
+                    g: { base: 2, scale: 1, h: 2, k: -1, expSign: 1 },
+                    xDomain: [-2, 4],
+                    yDomain: [-2, 6]
+                }
+            },
+
+            // --- LOGARITHMIC QUESTIONS ---
+            {
+                id: 'q_log_1',
+                funcType: 'logarithmic',
+                topic: 'scaling',
+                category: 'Logarithmic Properties & Scale',
+                questionText: 'The figure shows the graph of $y = f(x) = \\log_2 x$ and $y = g(x)$. If $g(x) = \\log_2(4x)$, how is the graph of $g(x)$ related to $f(x)$ geometrically?',
+                options: [
+                    'A. Translated upwards by 2 units',
+                    'B. Translated right by 4 units',
+                    'C. Vertically stretched by factor 4',
+                    'D. Translated downwards by 2 units'
+                ],
+                correctIndex: 0,
+                solution: 'Using logarithmic rules: $g(x) = \\log_2(4x) = \\log_2 x + \\log_2 4 = \\log_2 x + 2 = f(x) + 2$. Thus, the graph is translated UPWARDS by 2 units!',
+                drawParams: {
+                    type: 'logarithmic',
+                    f: { base: 2, scale: 1, h: 0, k: 0 },
+                    g: { base: 2, scale: 1, h: 0, k: 2 },
+                    xDomain: [0, 8],
+                    yDomain: [-3, 5]
+                }
+            },
+
+            // --- TRIGONOMETRIC QUESTIONS (SINE & COSINE) ---
+            {
+                id: 'q_trig_1',
+                funcType: 'trig',
+                topic: 'scaling',
+                category: 'Sine Amplitude & Period',
+                questionText: 'The figure shows the graph of $y = g(x) = 3 + 2\\sin(3x)$ for $0^\\circ \\le x \\le 240^\\circ$. What is the maximum value and period of $g(x)$?',
+                options: [
+                    'A. Max = 5, Period = $120^\\circ$',
+                    'B. Max = 5, Period = $360^\\circ$',
+                    'C. Max = 3, Period = $120^\\circ$',
+                    'D. Max = 2, Period = $60^\\circ$'
+                ],
+                correctIndex: 0,
+                solution: 'Maximum value = $3 + 2(1) = 5$. The coefficient inside $\\sin(3x)$ compresses the graph horizontally: Period = $\\frac{360^\\circ}{3} = 120^\\circ$.',
+                drawParams: {
+                    type: 'trig',
+                    f: { func: 'sin', amp: 1, freq: 1, offset: 0 },
+                    g: { func: 'sin', amp: 2, freq: 3, offset: 3 },
+                    xDomain: [0, 240],
+                    yDomain: [-1, 6]
+                }
+            },
+            {
+                id: 'q_trig_2',
+                funcType: 'trig',
+                topic: 'translation',
+                category: 'Cosine Phase Shift',
+                questionText: 'The graph of $y = g(x) = \\cos(x + 45^\\circ) + 1$ is obtained from $y = f(x) = \\cos x$ by which pair of transformations?',
+                options: [
+                    'A. Shift LEFT by $45^\\circ$ and UP by 1 unit',
+                    'B. Shift RIGHT by $45^\\circ$ and UP by 1 unit',
+                    'C. Shift LEFT by $45^\\circ$ and DOWN by 1 unit',
+                    'D. Shift RIGHT by $45^\\circ$ and DOWN by 1 unit'
+                ],
+                correctIndex: 0,
+                solution: 'Replacing $x$ with $x + 45^\\circ$ shifts the graph LEFT by $45^\\circ$. Adding $+1$ at the end shifts the graph UP by 1 unit.',
+                drawParams: {
+                    type: 'trig',
+                    f: { func: 'cos', amp: 1, freq: 1, offset: 0, phase: 0 },
+                    g: { func: 'cos', amp: 1, freq: 1, offset: 1, phase: 45 },
+                    xDomain: [0, 360],
+                    yDomain: [-2, 3]
+                }
+            },
+
+            // --- LINEAR QUESTIONS ---
+            {
+                id: 'q_lin_1',
+                funcType: 'linear',
+                topic: 'reflection',
+                category: 'Linear Function Transformations',
+                questionText: 'Let $f(x) = 2x + 3$. If $g(x)$ is obtained by first reflecting $y = f(x)$ in the y-axis and then shifting downwards by 2 units, express $g(x)$ in terms of $x$.',
+                options: [
+                    'A. $g(x) = -2x + 1$',
+                    'B. $g(x) = -2x + 5$',
+                    'C. $g(x) = 2x - 1$',
+                    'D. $g(x) = -2x - 1$'
+                ],
+                correctIndex: 0,
+                solution: '1. Reflection in y-axis: replace $x$ with $-x$, giving $f(-x) = 2(-x) + 3 = -2x + 3$.<br>2. Shift DOWN by 2 units: subtract 2, giving $g(x) = -2x + 3 - 2 = -2x + 1$.',
+                drawParams: {
+                    type: 'linear',
+                    f: { m: 2, c: 3 },
+                    g: { m: -2, c: 1 },
+                    xDomain: [-4, 4],
+                    yDomain: [-5, 7]
+                }
+            }
+        ];
+
+        window.onload = function() {
+            renderKaTeX();
+            updateSandbox();
+            
+            // Canvas resize observer
+            window.addEventListener('resize', () => {
+                if (currentView === 'drill-view') {
+                    renderDrillGraph();
+                } else if (currentView === 'sandbox-view') {
+                    updateSandbox();
+                }
+            });
+        };
+
+        function renderKaTeX() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+            });
+        }
+
+        function switchView(viewId) {
+            document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('drill-view').classList.add('hidden');
+            document.getElementById('sandbox-view').classList.add('hidden');
+            document.getElementById('cheatsheet-view').classList.add('hidden');
+
+            document.getElementById(viewId).classList.remove('hidden');
+            currentView = viewId;
+
+            if (viewId === 'sandbox-view') {
+                updateSandbox();
+            } else if (viewId === 'drill-view') {
+                renderDrillGraph();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function confirmGoHome() {
+            if (isExamMode && examTimeRemaining > 0) {
+                if (confirm('An exam session is currently active. Are you sure you want to quit?')) {
+                    clearInterval(examTimerInterval);
+                    isExamMode = false;
+                    switchView('home-view');
+                }
+            } else {
+                switchView('home-view');
+            }
+        }
+
+        // Selection Handlers
+        function selectFuncFilter(type) {
+            selectedFuncFilter = type;
+            document.querySelectorAll('.func-btn').forEach(btn => {
+                btn.className = 'func-btn p-2.5 rounded-lg border-2 border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:border-indigo-300 transition-all';
+            });
+            const activeBtn = document.getElementById(`func-btn-${type}`);
+            if (activeBtn) {
+                activeBtn.className = 'func-btn p-2.5 rounded-lg border-2 border-indigo-600 bg-indigo-50 text-indigo-950 font-semibold text-xs text-center transition-all';
+            }
+        }
+
+        function selectTopic(topic) {
+            selectedTopic = topic;
+            document.querySelectorAll('.topic-btn').forEach(btn => {
+                btn.className = 'topic-btn p-3 rounded-xl border-2 border-slate-200 hover:border-indigo-300 bg-white text-left transition-all flex items-start space-x-3';
+            });
+            const activeBtn = document.getElementById(`topic-btn-${topic}`);
+            if (activeBtn) {
+                activeBtn.className = 'topic-btn p-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 text-left transition-all flex items-start space-x-3';
+            }
+        }
+
+        function selectQuestionCount(count) {
+            selectedQCount = count;
+            document.querySelectorAll('.count-btn').forEach(btn => {
+                btn.className = 'count-btn px-4 py-2 text-sm font-semibold rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50';
+            });
+            event.target.className = 'count-btn px-4 py-2 text-sm font-semibold rounded-lg border border-indigo-600 bg-indigo-600 text-white shadow-sm';
+        }
+
+        function startPracticeMode() {
+            isExamMode = false;
+            document.getElementById('drill-mode-badge').innerText = 'Practice Drill';
+            document.getElementById('drill-mode-badge').className = 'px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-bold uppercase tracking-wider';
+            document.getElementById('exam-timer-container').classList.add('hidden');
+
+            prepareQuestionQueue();
+            switchView('drill-view');
+            loadQuestion(0);
+        }
+
+        function startExamMode() {
+            isExamMode = true;
+            document.getElementById('drill-mode-badge').innerText = 'DSE Exam Simulation';
+            document.getElementById('drill-mode-badge').className = 'px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider';
+            document.getElementById('exam-timer-container').classList.remove('hidden');
+
+            selectedFuncFilter = 'all';
+            selectedTopic = 'all';
+            selectedQCount = 20;
+
+            prepareQuestionQueue();
+            startExamTimer();
+            switchView('drill-view');
+            loadQuestion(0);
+        }
+
+        function prepareQuestionQueue() {
+            let pool = masterQuestions.filter(q => {
+                const matchFunc = (selectedFuncFilter === 'all' || q.funcType === selectedFuncFilter);
+                const matchTopic = (selectedTopic === 'all' || q.topic === selectedTopic);
+                return matchFunc && matchTopic;
+            });
+
+            if (pool.length === 0) pool = masterQuestions;
+
+            // Duplicate/shuffle to match requested count
+            questionsList = [];
+            while (questionsList.length < selectedQCount) {
+                const shuffled = [...pool].sort(() => Math.random() - 0.5);
+                questionsList.push(...shuffled);
+            }
+            questionsList = questionsList.slice(0, selectedQCount);
+
+            currentQIndex = 0;
+            userAnswers = {};
+            score = 0;
+            document.getElementById('live-score').innerText = '0';
+            document.getElementById('total-q-num').innerText = questionsList.length;
+        }
+
+        function startExamTimer() {
+            clearInterval(examTimerInterval);
+            examTimeRemaining = 35 * 60;
+            updateTimerDisplay();
+
+            examTimerInterval = setInterval(() => {
+                examTimeRemaining--;
+                updateTimerDisplay();
+                if (examTimeRemaining <= 0) {
+                    clearInterval(examTimerInterval);
+                    alert('Time is up! Submitting your exam paper.');
+                    finishDrillSession();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(examTimeRemaining / 60);
+            const secs = examTimeRemaining % 60;
+            document.getElementById('timer-display').innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function loadQuestion(index) {
+            currentQIndex = index;
+            document.getElementById('current-q-num').innerText = index + 1;
+
+            const q = questionsList[index];
+            document.getElementById('question-category-tag').innerText = q.category;
+            document.getElementById('question-text').innerHTML = q.questionText;
+
+            // Build Options
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            const prevAns = userAnswers[index];
+
+            q.options.forEach((optText, optIdx) => {
+                const btn = document.createElement('button');
+                btn.onclick = () => selectOption(optIdx);
+                
+                let btnStyle = 'w-full text-left p-3.5 rounded-xl border-2 transition-all flex items-center justify-between font-medium text-xs sm:text-sm ';
+
+                if (prevAns !== undefined) {
+                    if (optIdx === q.correctIndex) {
+                        btnStyle += 'border-emerald-500 bg-emerald-50 text-emerald-950 font-bold';
+                    } else if (optIdx === prevAns) {
+                        btnStyle += 'border-rose-500 bg-rose-50 text-rose-950';
+                    } else {
+                        btnStyle += 'border-slate-200 bg-slate-50 text-slate-400 opacity-60';
+                    }
+                } else {
+                    btnStyle += 'border-slate-200 hover:border-indigo-400 bg-white text-slate-700 hover:bg-slate-50';
+                }
+
+                btn.className = btnStyle;
+                btn.innerHTML = `<span>${optText}</span>`;
+                
+                if (prevAns !== undefined) {
+                    if (optIdx === q.correctIndex) {
+                        btn.innerHTML += `<i class="fa-solid fa-circle-check text-emerald-600 text-base"></i>`;
+                    } else if (optIdx === prevAns) {
+                        btn.innerHTML += `<i class="fa-solid fa-circle-xmark text-rose-500 text-base"></i>`;
+                    }
+                }
+
+                container.appendChild(btn);
+            });
+
+            // Toggle Solution Button
+            if (prevAns !== undefined) {
+                document.getElementById('explain-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('explain-btn').classList.add('hidden');
+            }
+
+            // Render math equations
+            renderKaTeX();
+
+            // Render Canvas Graph
+            setTimeout(() => {
+                renderDrillGraph();
+            }, 50);
+        }
+
+        function selectOption(optIdx) {
+            if (userAnswers[currentQIndex] !== undefined) return; // Prevent changing answer
+
+            const q = questionsList[currentQIndex];
+            userAnswers[currentQIndex] = optIdx;
+
+            if (optIdx === q.correctIndex) {
+                score++;
+                document.getElementById('live-score').innerText = score;
+            }
+
+            loadQuestion(currentQIndex);
+        }
+
+        function nextQuestion() {
+            if (currentQIndex < questionsList.length - 1) {
+                loadQuestion(currentQIndex + 1);
+            } else {
+                finishDrillSession();
+            }
+        }
+
+        function finishDrillSession() {
+            if (isExamMode) clearInterval(examTimerInterval);
+            
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            alert(`Session Completed!\nFinal Score: ${score} / ${questionsList.length}`);
+            switchView('home-view');
+        }
+
+        function toggleExplanationModal() {
+            const modal = document.getElementById('solution-modal');
+            const content = document.getElementById('modal-solution-content');
+            const q = questionsList[currentQIndex];
+
+            if (modal.classList.contains('hidden')) {
+                content.innerHTML = `
+                    <div class="p-3 bg-indigo-50 rounded-lg text-indigo-950 font-semibold mb-2">
+                        Question Concept: ${q.category}
+                    </div>
+                    <div>${q.solution}</div>
+                `;
+                renderMathInElement(content, { delimiters: [{left: '$', right: '$', display: false}] });
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        // Canvas Rendering Core Engine
+        function renderDrillGraph() {
+            const canvas = document.getElementById('drill-canvas');
+            if (!canvas) return;
+            
+            const q = questionsList[currentQIndex];
+            if (!q || !q.drawParams) return;
+
+            drawCoordinateGraph(canvas, q.drawParams);
+        }
+
+        function drawCoordinateGraph(canvas, params) {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width * window.devicePixelRatio || 400;
+            canvas.height = rect.height * window.devicePixelRatio || 300;
+
+            const ctx = canvas.getContext('2d');
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+            const width = rect.width;
+            const height = rect.height;
+
+            // Clear Background
+            ctx.fillStyle = '#f8fafc';
+            ctx.fillRect(0, 0, width, height);
+
+            const xDom = params.xDomain || [-5, 5];
+            const yDom = params.yDomain || [-5, 5];
+
+            // Mapping functions
+            const toCanvasX = (x) => ((x - xDom[0]) / (xDom[1] - xDom[0])) * width;
+            const toCanvasY = (y) => height - ((y - yDom[0]) / (yDom[1] - yDom[0])) * height;
+
+            // Draw Grid Lines
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.lineWidth = 1;
+
+            for (let x = Math.ceil(xDom[0]); x <= xDom[1]; x += (xDom[1]-xDom[0] > 100 ? 30 : 1)) {
+                const cx = toCanvasX(x);
+                ctx.beginPath();
+                ctx.moveTo(cx, 0);
+                ctx.lineTo(cx, height);
+                ctx.stroke();
+            }
+            for (let y = Math.ceil(yDom[0]); y <= yDom[1]; y += 1) {
+                const cy = toCanvasY(y);
+                ctx.beginPath();
+                ctx.moveTo(0, cy);
+                ctx.lineTo(width, cy);
+                ctx.stroke();
+            }
+
+            // Draw Axes
+            const ox = toCanvasX(0);
+            const oy = toCanvasY(0);
+
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 2;
+
+            // X-Axis
+            ctx.beginPath();
+            ctx.moveTo(0, oy);
+            ctx.lineTo(width, oy);
+            ctx.stroke();
+
+            // Y-Axis
+            ctx.beginPath();
+            ctx.moveTo(ox, 0);
+            ctx.lineTo(ox, height);
+            ctx.stroke();
+
+            // Origin Label 'O'
+            ctx.fillStyle = '#475569';
+            ctx.font = '12px Inter, sans-serif';
+            ctx.fillText('O', ox - 12, oy + 14);
+
+            // Function Evaluator
+            const evalFunc = (type, p, x) => {
+                if (type === 'quadratic') {
+                    return p.a * Math.pow(x - p.h, 2) + p.k;
+                } else if (type === 'exponential') {
+                    const sign = p.expSign !== undefined ? p.expSign : 1;
+                    return p.scale * Math.pow(p.base, sign * (x - p.h)) + p.k;
+                } else if (type === 'logarithmic') {
+                    if (x <= 0) return null;
+                    return p.scale * (Math.log2(x) - p.h) + p.k;
+                } else if (type === 'trig') {
+                    const rad = (x - (p.phase || 0)) * Math.PI / 180;
+                    const val = p.func === 'cos' ? Math.cos(p.freq * rad) : Math.sin(p.freq * rad);
+                    return p.amp * val + p.offset;
+                } else if (type === 'linear') {
+                    return p.m * x + p.c;
+                }
+                return 0;
+            };
+
+            // Draw y = f(x) Curve (Blue/Indigo)
+            ctx.strokeStyle = '#4f46e5';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            let startedF = false;
+
+            const step = (xDom[1] - xDom[0]) / 200;
+            let fLabelPos = null;
+
+            for (let x = xDom[0]; x <= xDom[1]; x += step) {
+                const y = evalFunc(params.type, params.f, x);
+                if (y !== null && !isNaN(y) && y >= yDom[0] - 2 && y <= yDom[1] + 2) {
+                    const cx = toCanvasX(x);
+                    const cy = toCanvasY(y);
+                    if (!startedF) {
+                        ctx.moveTo(cx, cy);
+                        startedF = true;
+                    } else {
+                        ctx.lineTo(cx, cy);
+                    }
+                    if (!fLabelPos && x > xDom[0] + (xDom[1] - xDom[0]) * 0.6) {
+                        fLabelPos = { cx, cy };
+                    }
+                } else {
+                    startedF = false;
+                }
+            }
+            ctx.stroke();
+
+            // Draw y = g(x) Curve (Rose/Red)
+            ctx.strokeStyle = '#f43f5e';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            let startedG = false;
+            let gLabelPos = null;
+
+            for (let x = xDom[0]; x <= xDom[1]; x += step) {
+                const y = evalFunc(params.type, params.g, x);
+                if (y !== null && !isNaN(y) && y >= yDom[0] - 2 && y <= yDom[1] + 2) {
+                    const cx = toCanvasX(x);
+                    const cy = toCanvasY(y);
+                    if (!startedG) {
+                        ctx.moveTo(cx, cy);
+                        startedG = true;
+                    } else {
+                        ctx.lineTo(cx, cy);
+                    }
+                    if (!gLabelPos && x > xDom[0] + (xDom[1] - xDom[0]) * 0.3) {
+                        gLabelPos = { cx, cy };
+                    }
+                } else {
+                    startedG = false;
+                }
+            }
+            ctx.stroke();
+
+            // Label f(x) and g(x) directly next to curves
+            ctx.font = 'bold 13px Inter, sans-serif';
+            
+            if (fLabelPos) {
+                ctx.fillStyle = '#4f46e5';
+                ctx.fillText('y = f(x)', fLabelPos.cx + 6, fLabelPos.cy - 6);
+            }
+            if (gLabelPos) {
+                ctx.fillStyle = '#f43f5e';
+                ctx.fillText('y = g(x)', gLabelPos.cx + 6, gLabelPos.cy - 6);
+            }
+        }
+
+        function updateSandbox() {
+            const funcType = document.getElementById('sandbox-func-type').value;
+            const h = parseFloat(document.getElementById('slider-h').value);
+            const k = parseFloat(document.getElementById('slider-k').value);
+            const a = parseFloat(document.getElementById('slider-a').value);
+            const b = parseFloat(document.getElementById('slider-b').value);
+
+            document.getElementById('val-h').innerText = h;
+            document.getElementById('val-k').innerText = k;
+            document.getElementById('val-a').innerText = a;
+            document.getElementById('val-b').innerText = b;
+
+            // Formulate LaTeX String
+            let fxKaTeX = '';
+            let gxKaTeX = '';
+
+            if (funcType === 'quadratic') {
+                fxKaTeX = 'f(x) = x^2';
+                gxKaTeX = `g(x) = ${a !== 1 ? a : ''} (${b !== 1 ? b : ''}(x ${h >= 0 ? '- ' + h : '+ ' + Math.abs(h)}))^2 ${k >= 0 ? '+ ' + k : '- ' + Math.abs(k)}`;
+            } else if (funcType === 'linear') {
+                fxKaTeX = 'f(x) = 2x + 1';
+                gxKaTeX = `g(x) = ${a}(2(${b}(x - ${h})) + 1) + ${k}`;
+            } else if (funcType === 'exponential') {
+                fxKaTeX = 'f(x) = 2^x';
+                gxKaTeX = `g(x) = ${a} \\cdot 2^{${b}(x - ${h})} + ${k}`;
+            } else if (funcType === 'logarithmic') {
+                fxKaTeX = 'f(x) = \\log_2(x)';
+                gxKaTeX = `g(x) = ${a} \\cdot \\log_2(${b}(x - ${h})) + ${k}`;
+            } else if (funcType === 'sine') {
+                fxKaTeX = 'f(x) = \\sin(x)';
+                gxKaTeX = `g(x) = ${a} \\cdot \\sin(${b}(x - ${h})) + ${k}`;
+            } else if (funcType === 'cosine') {
+                fxKaTeX = 'f(x) = \\cos(x)';
+                gxKaTeX = `g(x) = ${a} \\cdot \\cos(${b}(x - ${h})) + ${k}`;
+            }
+
+            document.getElementById('sandbox-fx-katex').innerHTML = `$${fxKaTeX}$`;
+            document.getElementById('sandbox-gx-katex').innerHTML = `$${gxKaTeX}$`;
+            renderMathInElement(document.getElementById('sandbox-fx-katex'));
+            renderMathInElement(document.getElementById('sandbox-gx-katex'));
+
+            // Render Sandbox Graph Canvas
+            const canvas = document.getElementById('sandbox-canvas');
+            if (!canvas) return;
+
+            let xDom = [-6, 6];
+            let yDom = [-6, 6];
+            if (funcType === 'sine' || funcType === 'cosine') {
+                xDom = [-360, 360];
+                yDom = [-4, 4];
+            }
+
+            const drawParams = {
+                type: funcType,
+                f: getSandboxBaseParams(funcType),
+                g: getSandboxTransformedParams(funcType, h, k, a, b),
+                xDomain: xDom,
+                yDomain: yDom
+            };
+
+            drawCoordinateGraph(canvas, drawParams);
+        }
+
+        function getSandboxBaseParams(type) {
+            if (type === 'quadratic') return { a: 1, h: 0, k: 0 };
+            if (type === 'linear') return { m: 2, c: 1 };
+            if (type === 'exponential') return { base: 2, scale: 1, h: 0, k: 0 };
+            if (type === 'logarithmic') return { base: 2, scale: 1, h: 0, k: 0 };
+            if (type === 'sine') return { func: 'sin', amp: 1, freq: 1/60, offset: 0 };
+            if (type === 'cosine') return { func: 'cos', amp: 1, freq: 1/60, offset: 0 };
+        }
+
+        function getSandboxTransformedParams(type, h, k, a, b) {
+            if (type === 'quadratic') return { a: a, h: h, k: k };
+            if (type === 'linear') return { m: 2 * a * b, c: (1 - 2*h)*a + k };
+            if (type === 'exponential') return { base: 2, scale: a, h: h, k: k };
+            if (type === 'logarithmic') return { base: 2, scale: a, h: h, k: k };
+            if (type === 'sine') return { func: 'sin', amp: a, freq: (1/60)*b, offset: k, phase: h };
+            if (type === 'cosine') return { func: 'cos', amp: a, freq: (1/60)*b, offset: k, phase: h };
+        }
+
+        function resetSandbox() {
+            document.getElementById('slider-h').value = 0;
+            document.getElementById('slider-k').value = 0;
+            document.getElementById('slider-a').value = 1;
+            document.getElementById('slider-b').value = 1;
+            updateSandbox();
+        }
+    </script>
+</body>
+</html>
