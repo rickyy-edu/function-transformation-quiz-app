@@ -155,7 +155,7 @@
                                     <div class="p-2 rounded-lg bg-indigo-600 text-white text-xs mt-0.5"><i class="fa-solid fa-layer-group"></i></div>
                                     <div>
                                         <div class="font-bold text-sm text-indigo-950">All Transformations</div>
-                                        <div class="text-xs text-slate-500">Shifts, Scaling, Reflection & Order</div>
+                                        <div class="text-xs text-slate-500">Translations, Enlargement, Reflection & Order</div>
                                     </div>
                                 </button>
 
@@ -163,15 +163,15 @@
                                     <div class="p-2 rounded-lg bg-slate-100 text-slate-600 text-xs mt-0.5"><i class="fa-solid fa-arrows-up-down-left-right"></i></div>
                                     <div>
                                         <div class="font-bold text-sm text-slate-800">Translations ($f(x\pm h)\pm k$)</div>
-                                        <div class="text-xs text-slate-500">Horizontal & vertical shifts</div>
+                                        <div class="text-xs text-slate-500">Horizontal & vertical translations</div>
                                     </div>
                                 </button>
 
                                 <button onclick="selectTopic('scaling')" id="topic-btn-scaling" class="topic-btn p-3 rounded-xl border-2 border-slate-200 hover:border-indigo-300 bg-white text-left transition-all flex items-start space-x-3">
                                     <div class="p-2 rounded-lg bg-slate-100 text-slate-600 text-xs mt-0.5"><i class="fa-solid fa-expand"></i></div>
                                     <div>
-                                        <div class="font-bold text-sm text-slate-800">Scaling & Period ($a\cdot f(bx)$)</div>
-                                        <div class="text-xs text-slate-500">Amplitude, period & stretch factors</div>
+                                        <div class="font-bold text-sm text-slate-800">Enlargement & Period ($a\cdot f(bx)$)</div>
+                                        <div class="text-xs text-slate-500">Amplitude, period & enlargement factors</div>
                                     </div>
                                 </button>
 
@@ -399,44 +399,44 @@
                     <div class="space-y-4 pt-2 border-t border-slate-100">
                         <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Transformation Sliders:</h4>
                         
-                        <!-- Horizontal Shift (h) -->
+                        <!-- Horizontal Translation (h) -->
                         <div class="space-y-1">
                             <div class="flex justify-between text-xs font-semibold">
-                                <span class="text-slate-700">Horizontal Shift ($h$): $f(x - h)$</span>
+                                <span class="text-slate-700">Horizontal Translation ($h$): $f(x - h)$</span>
                                 <span id="val-h" class="text-indigo-600 font-bold">0</span>
                             </div>
                             <input type="range" id="slider-h" min="-5" max="5" step="0.5" value="0" oninput="updateSandbox()" class="w-full accent-indigo-600 cursor-pointer">
-                            <p class="text-[10px] text-slate-400">+h shifts RIGHT, -h shifts LEFT</p>
+                            <p class="text-[10px] text-slate-400">+h translates RIGHTWARDS, -h translates LEFTWARDS</p>
                         </div>
 
-                        <!-- Vertical Shift (k) -->
+                        <!-- Vertical Translation (k) -->
                         <div class="space-y-1">
                             <div class="flex justify-between text-xs font-semibold">
-                                <span class="text-slate-700">Vertical Shift ($k$): $f(x) + k$</span>
+                                <span class="text-slate-700">Vertical Translation ($k$): $f(x) + k$</span>
                                 <span id="val-k" class="text-indigo-600 font-bold">0</span>
                             </div>
                             <input type="range" id="slider-k" min="-5" max="5" step="0.5" value="0" oninput="updateSandbox()" class="w-full accent-indigo-600 cursor-pointer">
-                            <p class="text-[10px] text-slate-400">+k shifts UP, -k shifts DOWN</p>
+                            <p class="text-[10px] text-slate-400">+k translates UPWARDS, -k translates DOWNWARDS</p>
                         </div>
 
-                        <!-- Vertical Stretch / Reflection (a) -->
+                        <!-- Vertical Enlargement / Reflection (a) -->
                         <div class="space-y-1">
                             <div class="flex justify-between text-xs font-semibold">
-                                <span class="text-slate-700">Vertical Scale ($a$): $a \cdot f(x)$</span>
+                                <span class="text-slate-700">Vertical Enlargement ($a$): $a \cdot f(x)$</span>
                                 <span id="val-a" class="text-indigo-600 font-bold">1</span>
                             </div>
                             <input type="range" id="slider-a" min="-3" max="3" step="0.5" value="1" oninput="updateSandbox()" class="w-full accent-indigo-600 cursor-pointer">
-                            <p class="text-[10px] text-slate-400">a &lt; 0 reflects across x-axis</p>
+                            <p class="text-[10px] text-slate-400">a &lt; 0 reflects in x-axis</p>
                         </div>
 
-                        <!-- Horizontal Stretch / Reflection (b) -->
+                        <!-- Horizontal Enlargement / Reflection (b) -->
                         <div class="space-y-1">
                             <div class="flex justify-between text-xs font-semibold">
-                                <span class="text-slate-700">Horizontal Scale ($b$): $f(b \cdot x)$</span>
+                                <span class="text-slate-700">Horizontal Enlargement ($b$): $f(b \cdot x)$</span>
                                 <span id="val-b" class="text-indigo-600 font-bold">1</span>
                             </div>
                             <input type="range" id="slider-b" min="-3" max="3" step="0.5" value="1" oninput="updateSandbox()" class="w-full accent-indigo-600 cursor-pointer">
-                            <p class="text-[10px] text-slate-400">b &lt; 0 reflects across y-axis. Scale factor = 1/b</p>
+                            <p class="text-[10px] text-slate-400">b &lt; 0 reflects in y-axis. Enlargement factor = 1/b</p>
                         </div>
                     </div>
                 </div>
@@ -455,17 +455,17 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Rule 1: Vertical vs Horizontal Shifts -->
+                <!-- Rule 1: Vertical vs Horizontal Translations -->
                 <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
                     <div class="flex items-center space-x-2 text-indigo-700 font-bold text-sm">
                         <i class="fa-solid fa-arrows-up-down-left-right"></i>
-                        <span>1. Translations (Shifts)</span>
+                        <span>1. Translations</span>
                     </div>
                     <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
-                        <li><strong>$y = f(x) + k$:</strong> Shift <strong>UP</strong> by $k$ units ($k>0$).</li>
-                        <li><strong>$y = f(x) - k$:</strong> Shift <strong>DOWN</strong> by $k$ units ($k>0$).</li>
-                        <li><strong>$y = f(x - h)$:</strong> Shift <strong>RIGHT</strong> by $h$ units ($h>0$).</li>
-                        <li><strong>$y = f(x + h)$:</strong> Shift <strong>LEFT</strong> by $h$ units ($h>0$).</li>
+                        <li><strong>$y = f(x) + k$:</strong> Translated <strong>UPWARDS</strong> by $k$ units ($k>0$).</li>
+                        <li><strong>$y = f(x) - k$:</strong> Translated <strong>DOWNWARDS</strong> by $k$ units ($k>0$).</li>
+                        <li><strong>$y = f(x - h)$:</strong> Translated <strong>RIGHTWARDS</strong> by $h$ units ($h>0$).</li>
+                        <li><strong>$y = f(x + h)$:</strong> Translated <strong>LEFTWARDS</strong> by $h$ units ($h>0$).</li>
                     </ul>
                 </div>
 
@@ -476,20 +476,20 @@
                         <span>2. Reflections</span>
                     </div>
                     <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
-                        <li><strong>$y = -f(x)$:</strong> Reflected in the <strong>x-axis</strong> ($y$-values change sign).</li>
-                        <li><strong>$y = f(-x)$:</strong> Reflected in the <strong>y-axis</strong> ($x$-values change sign).</li>
+                        <li><strong>$y = -f(x)$:</strong> Reflected with respect to the <strong>$x$-axis</strong> ($y$-values change sign).</li>
+                        <li><strong>$y = f(-x)$:</strong> Reflected with respect to the <strong>$y$-axis</strong> ($x$-values change sign).</li>
                     </ul>
                 </div>
 
-                <!-- Rule 3: Scaling & Stretch Factors -->
+                <!-- Rule 3: Enlargement & Period -->
                 <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
                     <div class="flex items-center space-x-2 text-amber-600 font-bold text-sm">
                         <i class="fa-solid fa-expand"></i>
-                        <span>3. Scaling & Period</span>
+                        <span>3. Enlargement & Period</span>
                     </div>
                     <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
-                        <li><strong>$y = a \cdot f(x)$:</strong> Vertically stretched by factor $a$ (Amplitude changes for trig).</li>
-                        <li><strong>$y = f(b \cdot x)$:</strong> Horizontally compressed by factor $\frac{1}{b}$ (Period becomes $\frac{360^\circ}{b}$).</li>
+                        <li><strong>$y = a \cdot f(x)$:</strong> Vertically enlarged to $a$ times the original (Amplitude changes for trig).</li>
+                        <li><strong>$y = f(b \cdot x)$:</strong> Horizontally compressed to $\frac{1}{b}$ times the original (Period becomes $\frac{360^\circ}{b}$).</li>
                     </ul>
                 </div>
 
@@ -506,15 +506,15 @@
                         <div>
                             <span class="font-bold text-emerald-700">Method A (Factorize first): $f(2(x+3))$</span>
                             <ol class="list-decimal list-inside text-slate-700 mt-1 space-y-1">
-                                <li>Translate LEFT by 3 units: $f(x+3)$</li>
-                                <li>Compress horizontally to $\frac{1}{2}$: $f(2x+3)$</li>
+                                <li>Translate leftwards by 3 units: $f(x+3)$</li>
+                                <li>Compress horizontally to $\frac{1}{2}$ times: $f(2x+3)$</li>
                             </ol>
                         </div>
                         <div>
-                            <span class="font-bold text-indigo-700">Method B (Horizontal scale first): $f(2x)$</span>
+                            <span class="font-bold text-indigo-700">Method B (Horizontal enlargement first): $f(2x)$</span>
                             <ol class="list-decimal list-inside text-slate-700 mt-1 space-y-1">
-                                <li>Compress horizontally to $\frac{1}{2}$: $f(2x)$</li>
-                                <li>Translate LEFT by 6 units: $f(2(x+3)) = f(2x+6)$</li>
+                                <li>Compress horizontally to $\frac{1}{2}$ times: $f(2x)$</li>
+                                <li>Translate leftwards by 6 units: $f(2(x+3)) = f(2x+6)$</li>
                             </ol>
                         </div>
                     </div>
@@ -568,6 +568,107 @@
         let examTimerInterval = null;
         let examTimeRemaining = 35 * 60; // 35 minutes
 
+        // View & Navigation Handlers
+        function switchView(viewId) {
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+            const target = document.getElementById(viewId);
+            if (target) target.classList.remove('hidden');
+            currentView = viewId;
+
+            if (viewId === 'sandbox-view') {
+                updateSandbox();
+            } else if (viewId === 'drill-view' && questionsList.length > 0) {
+                renderDrillGraph();
+            }
+        }
+
+        function confirmGoHome() {
+            if (isExamMode && examTimerInterval) {
+                if (!confirm("Are you sure you want to exit the exam? Your progress will be lost.")) {
+                    return;
+                }
+                clearInterval(examTimerInterval);
+            }
+            switchView('home-view');
+        }
+
+        function selectFuncFilter(filter) {
+            selectedFuncFilter = filter;
+            document.querySelectorAll('.func-btn').forEach(btn => {
+                btn.classList.remove('border-indigo-600', 'bg-indigo-50', 'text-indigo-950');
+                btn.classList.add('border-slate-200', 'bg-white', 'text-slate-700');
+            });
+            const selectedBtn = document.getElementById(`func-btn-${filter}`);
+            if (selectedBtn) {
+                selectedBtn.classList.remove('border-slate-200', 'bg-white', 'text-slate-700');
+                selectedBtn.classList.add('border-indigo-600', 'bg-indigo-50', 'text-indigo-950');
+            }
+        }
+
+        function selectTopic(topic) {
+            selectedTopic = topic;
+            document.querySelectorAll('.topic-btn').forEach(btn => {
+                btn.classList.remove('border-indigo-600', 'bg-indigo-50/60');
+                btn.classList.add('border-slate-200', 'bg-white');
+            });
+            const selectedBtn = document.getElementById(`topic-btn-${topic}`);
+            if (selectedBtn) {
+                selectedBtn.classList.remove('border-slate-200', 'bg-white');
+                selectedBtn.classList.add('border-indigo-600', 'bg-indigo-50/60');
+            }
+        }
+
+        function selectQuestionCount(count) {
+            selectedQCount = count;
+            document.querySelectorAll('.count-btn').forEach(btn => {
+                btn.classList.remove('border-indigo-600', 'bg-indigo-600', 'text-white', 'shadow-sm');
+                btn.classList.add('border-slate-300', 'bg-white', 'text-slate-700');
+                if (btn.innerText.includes(count.toString())) {
+                    btn.classList.remove('border-slate-300', 'bg-white', 'text-slate-700');
+                    btn.classList.add('border-indigo-600', 'bg-indigo-600', 'text-white', 'shadow-sm');
+                }
+            });
+        }
+
+        function startPracticeMode() {
+            isExamMode = false;
+            document.getElementById('drill-mode-badge').innerText = 'Practice Mode';
+            document.getElementById('drill-mode-badge').className = 'px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-bold uppercase tracking-wider';
+            document.getElementById('exam-timer-container').classList.add('hidden');
+            
+            prepareQuestionQueue();
+            switchView('drill-view');
+            loadQuestion(0);
+        }
+
+        function startExamMode() {
+            isExamMode = true;
+            selectedFuncFilter = 'all';
+            selectedTopic = 'all';
+            selectedQCount = 20;
+            
+            document.getElementById('drill-mode-badge').innerText = 'DSE Exam Mode';
+            document.getElementById('drill-mode-badge').className = 'px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider';
+            document.getElementById('exam-timer-container').classList.remove('hidden');
+
+            prepareQuestionQueue();
+            switchView('drill-view');
+            loadQuestion(0);
+            startExamTimer();
+        }
+
+        function renderKaTeX() {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
         // Master Question Bank (Quadratic, Linear, Logarithmic, Exponential, Sine, Cosine)
         const masterQuestions = [
             // --- QUADRATIC QUESTIONS ---
@@ -575,7 +676,7 @@
                 id: 'q_quad_1',
                 funcType: 'quadratic',
                 topic: 'reflection',
-                category: 'Quadratic Reflection & Scale',
+                category: 'Quadratic Reflection & Enlargement',
                 questionText: 'The figure shows the graphs of $y = f(x)$ and $y = g(x)$. If $f(x) = x^2 - 4x$, which of the following expressions represents $g(x)$?',
                 options: [
                     'A. $g(x) = -f(x)$',
@@ -584,7 +685,7 @@
                     'D. $g(x) = f(x + 4)$'
                 ],
                 correctIndex: 0,
-                solution: 'The graph of $y = g(x)$ is the reflection of $y = f(x)$ in the x-axis. Therefore, $g(x) = -f(x) = -(x^2 - 4x) = -x^2 + 4x$.',
+                solution: 'The graph of $y = g(x)$ is the reflection of $y = f(x)$ with respect to the x-axis. Therefore, $g(x) = -f(x) = -(x^2 - 4x) = -x^2 + 4x$.',
                 drawParams: {
                     type: 'quadratic',
                     f: { a: 0.8, h: 2, k: -3.2 },
@@ -598,7 +699,7 @@
                 funcType: 'quadratic',
                 topic: 'translation',
                 category: 'Quadratic Translation',
-                questionText: 'The graph of $y = f(x) = (x-1)^2 - 2$ is translated to the left by 3 units and upwards by 4 units to become $y = g(x)$. Find $g(x)$.',
+                questionText: 'The graph of $y = f(x) = (x-1)^2 - 2$ is translated leftwards by 3 units and upwards by 4 units to become $y = g(x)$. Find $g(x)$.',
                 options: [
                     'A. $g(x) = (x + 2)^2 + 2$',
                     'B. $g(x) = (x - 4)^2 + 2$',
@@ -606,7 +707,7 @@
                     'D. $g(x) = (x - 4)^2 - 6$'
                 ],
                 correctIndex: 0,
-                solution: '1. Shift LEFT by 3 units: replace $x$ with $x + 3$, giving $f(x+3) = ((x+3)-1)^2 - 2 = (x+2)^2 - 2$.<br>2. Shift UPWARDS by 4 units: add $4$, giving $g(x) = (x+2)^2 - 2 + 4 = (x+2)^2 + 2$.',
+                solution: '1. Translate LEFTWARDS by 3 units: replace $x$ with $x + 3$, giving $f(x+3) = ((x+3)-1)^2 - 2 = (x+2)^2 - 2$.<br>2. Translate UPWARDS by 4 units: add $4$, giving $g(x) = (x+2)^2 - 2 + 4 = (x+2)^2 + 2$.',
                 drawParams: {
                     type: 'quadratic',
                     f: { a: 1, h: 1, k: -2 },
@@ -615,14 +716,58 @@
                     yDomain: [-4, 6]
                 }
             },
+            {
+                id: 'q_quad_3',
+                funcType: 'quadratic',
+                topic: 'scaling',
+                category: 'Quadratic Vertical Enlargement',
+                questionText: 'The graph of $y = f(x) = x^2 - 2x + 3$ is vertically enlarged to $3$ times the original to form $y = g(x)$. What is the vertex of $y = g(x)$?',
+                options: [
+                    'A. $(1, 6)$',
+                    'B. $(3, 6)$',
+                    'C. $(1, 2)$',
+                    'D. $(1, 18)$'
+                ],
+                correctIndex: 0,
+                solution: 'Completing the square: $f(x) = (x-1)^2 + 2$, so vertex of $f(x)$ is $(1, 2)$. Enlarging vertically to 3 times the original gives $g(x) = 3f(x)$, so the y-coordinate is multiplied by 3. Vertex of $g(x)$ is $(1, 6)$.',
+                drawParams: {
+                    type: 'quadratic',
+                    f: { a: 0.5, h: 1, k: 1 },
+                    g: { a: 1.5, h: 1, k: 3 },
+                    xDomain: [-3, 5],
+                    yDomain: [-1, 8]
+                }
+            },
+            {
+                id: 'q_quad_4',
+                funcType: 'quadratic',
+                topic: 'reflection',
+                category: 'Quadratic y-Axis Reflection',
+                questionText: 'If $f(x) = 2(x - 3)^2 + 1$ is reflected with respect to the y-axis to form $g(x)$, what is the equation of $g(x)$?',
+                options: [
+                    'A. $g(x) = 2(x + 3)^2 + 1$',
+                    'B. $g(x) = -2(x - 3)^2 - 1$',
+                    'C. $g(x) = -2(x + 3)^2 + 1$',
+                    'D. $g(x) = 2(x - 3)^2 - 1$'
+                ],
+                correctIndex: 0,
+                solution: 'Reflection with respect to the y-axis requires replacing $x$ with $-x$: $g(x) = f(-x) = 2(-x - 3)^2 + 1 = 2(-(x + 3))^2 + 1 = 2(x + 3)^2 + 1$.',
+                drawParams: {
+                    type: 'quadratic',
+                    f: { a: 0.6, h: 3, k: 1 },
+                    g: { a: 0.6, h: -3, k: 1 },
+                    xDomain: [-6, 6],
+                    yDomain: [-1, 7]
+                }
+            },
 
             // --- EXPONENTIAL QUESTIONS ---
             {
                 id: 'q_exp_1',
                 funcType: 'exponential',
                 topic: 'reflection',
-                category: 'Exponential Reflection & Shift',
-                questionText: 'The figure shows $y = f(x) = 3^x$ and $y = g(x)$. If $g(x)$ is obtained by reflecting $y = f(x)$ in the y-axis and then shifting downwards by 1 unit, find the value of $g(1)$.',
+                category: 'Exponential Reflection & Translation',
+                questionText: 'The figure shows $y = f(x) = 3^x$ and $y = g(x)$. If $g(x)$ is obtained by reflecting $y = f(x)$ with respect to the y-axis and then translating downwards by 1 unit, find the value of $g(1)$.',
                 options: [
                     'A. $-\\frac{2}{3}$',
                     'B. $2$',
@@ -630,7 +775,7 @@
                     'D. $0$'
                 ],
                 correctIndex: 0,
-                solution: '1. Reflection in y-axis: replace $x$ with $-x$, giving $3^{-x}$.<br>2. Shift DOWNWARDS by 1 unit: subtract $1$, giving $g(x) = 3^{-x} - 1$.<br>3. Substituting $x = 1$: $g(1) = 3^{-1} - 1 = \\frac{1}{3} - 1 = -\\frac{2}{3}$.',
+                solution: '1. Reflection with respect to the y-axis: replace $x$ with $-x$, giving $3^{-x}$.<br>2. Translate DOWNWARDS by 1 unit: subtract $1$, giving $g(x) = 3^{-x} - 1$.<br>3. Substituting $x = 1$: $g(1) = 3^{-1} - 1 = \\frac{1}{3} - 1 = -\\frac{2}{3}$.',
                 drawParams: {
                     type: 'exponential',
                     f: { base: 3, scale: 1, h: 0, k: 0, expSign: 1 },
@@ -644,7 +789,7 @@
                 funcType: 'exponential',
                 topic: 'translation',
                 category: 'Exponential Translation',
-                questionText: 'The figure shows $y = f(x) = 2^x$ and $y = g(x)$. If $y = g(x)$ is obtained by shifting $y = f(x)$ right by 2 units and down by 1 unit, what is $g(0)$?',
+                questionText: 'The figure shows $y = f(x) = 2^x$ and $y = g(x)$. If $y = g(x)$ is obtained by translating $y = f(x)$ rightwards by 2 units and downwards by 1 unit, what is $g(0)$?',
                 options: [
                     'A. $-0.75$',
                     'B. $0.25$',
@@ -661,18 +806,40 @@
                     yDomain: [-2, 6]
                 }
             },
+            {
+                id: 'q_exp_3',
+                funcType: 'exponential',
+                topic: 'scaling',
+                category: 'Exponential Enlargement & Shift',
+                questionText: 'The graph of $f(x) = 2^x$ is vertically enlarged to 3 times the original and translated UPWARDS by 2 units to form $g(x)$. What is the y-intercept of $g(x)$?',
+                options: [
+                    'A. $(0, 5)$',
+                    'B. $(0, 3)$',
+                    'C. $(0, 2)$',
+                    'D. $(0, 6)$'
+                ],
+                correctIndex: 0,
+                solution: '$g(x) = 3 \\cdot 2^x + 2$. Substituting $x = 0$ gives $g(0) = 3 \\cdot 2^0 + 2 = 3(1) + 2 = 5$. Thus, the y-intercept is $(0, 5)$.',
+                drawParams: {
+                    type: 'exponential',
+                    f: { base: 2, scale: 1, h: 0, k: 0, expSign: 1 },
+                    g: { base: 2, scale: 3, h: 0, k: 2, expSign: 1 },
+                    xDomain: [-3, 3],
+                    yDomain: [-1, 8]
+                }
+            },
 
             // --- LOGARITHMIC QUESTIONS ---
             {
                 id: 'q_log_1',
                 funcType: 'logarithmic',
                 topic: 'scaling',
-                category: 'Logarithmic Properties & Scale',
+                category: 'Logarithmic Properties & Enlargement',
                 questionText: 'The figure shows the graph of $y = f(x) = \\log_2 x$ and $y = g(x)$. If $g(x) = \\log_2(4x)$, how is the graph of $g(x)$ related to $f(x)$ geometrically?',
                 options: [
                     'A. Translated upwards by 2 units',
-                    'B. Translated right by 4 units',
-                    'C. Vertically stretched by factor 4',
+                    'B. Translated rightwards by 4 units',
+                    'C. Vertically enlarged by a factor of 4',
                     'D. Translated downwards by 2 units'
                 ],
                 correctIndex: 0,
@@ -683,6 +850,28 @@
                     g: { base: 2, scale: 1, h: 0, k: 2 },
                     xDomain: [0, 8],
                     yDomain: [-3, 5]
+                }
+            },
+            {
+                id: 'q_log_2',
+                funcType: 'logarithmic',
+                topic: 'translation',
+                category: 'Logarithmic Horizontal Translation',
+                questionText: 'The graph of $y = f(x) = \\log_3(x)$ is translated leftwards by 5 units and downwards by 3 units to form $g(x)$. What is the value of $g(4)$?',
+                options: [
+                    'A. $-1$',
+                    'B. $2$',
+                    'C. $-3$',
+                    'D. $0$'
+                ],
+                correctIndex: 0,
+                solution: '1. Translate LEFTWARDS by 5 units: $f(x+5) = \\log_3(x+5)$.<br>2. Translate DOWNWARDS by 3 units: $g(x) = \\log_3(x+5) - 3$.<br>3. Substituting $x = 4$: $g(4) = \\log_3(4+5) - 3 = \\log_3(9) - 3 = 2 - 3 = -1$.',
+                drawParams: {
+                    type: 'logarithmic',
+                    f: { base: 3, scale: 1, h: 0, k: 0 },
+                    g: { base: 3, scale: 1, h: -5, k: -3 },
+                    xDomain: [-6, 6],
+                    yDomain: [-5, 4]
                 }
             },
 
@@ -713,22 +902,44 @@
                 id: 'q_trig_2',
                 funcType: 'trig',
                 topic: 'translation',
-                category: 'Cosine Phase Shift',
+                category: 'Cosine Phase Translation',
                 questionText: 'The graph of $y = g(x) = \\cos(x + 45^\\circ) + 1$ is obtained from $y = f(x) = \\cos x$ by which pair of transformations?',
                 options: [
-                    'A. Shift LEFT by $45^\\circ$ and UP by 1 unit',
-                    'B. Shift RIGHT by $45^\\circ$ and UP by 1 unit',
-                    'C. Shift LEFT by $45^\\circ$ and DOWN by 1 unit',
-                    'D. Shift RIGHT by $45^\\circ$ and DOWN by 1 unit'
+                    'A. Translate leftwards by $45^\\circ$ and upwards by 1 unit',
+                    'B. Translate rightwards by $45^\\circ$ and upwards by 1 unit',
+                    'C. Translate leftwards by $45^\\circ$ and downwards by 1 unit',
+                    'D. Translate rightwards by $45^\\circ$ and downwards by 1 unit'
                 ],
                 correctIndex: 0,
-                solution: 'Replacing $x$ with $x + 45^\\circ$ shifts the graph LEFT by $45^\\circ$. Adding $+1$ at the end shifts the graph UP by 1 unit.',
+                solution: 'Replacing $x$ with $x + 45^\\circ$ translates the graph LEFTWARDS by $45^\\circ$. Adding $+1$ at the end translates the graph UPWARDS by 1 unit.',
                 drawParams: {
                     type: 'trig',
                     f: { func: 'cos', amp: 1, freq: 1, offset: 0, phase: 0 },
                     g: { func: 'cos', amp: 1, freq: 1, offset: 1, phase: 45 },
                     xDomain: [0, 360],
                     yDomain: [-2, 3]
+                }
+            },
+            {
+                id: 'q_trig_3',
+                funcType: 'trig',
+                topic: 'reflection',
+                category: 'Trigonometric Reflection',
+                questionText: 'The figure shows $y = f(x) = \\sin x$. If $g(x) = -2\\sin x$, which description correctly describes $g(x)$ relative to $f(x)$?',
+                options: [
+                    'A. Reflected with respect to x-axis & vertically enlarged to 2 times',
+                    'B. Reflected with respect to y-axis & horizontally enlarged to 2 times',
+                    'C. Translated downwards by 2 units',
+                    'D. Reflected with respect to x-axis & translated upwards by 2 units'
+                ],
+                correctIndex: 0,
+                solution: 'The negative sign reflects the curve with respect to the x-axis, and multiplying by 2 doubles the amplitude (vertically enlarged to 2 times the original).',
+                drawParams: {
+                    type: 'trig',
+                    f: { func: 'sin', amp: 1, freq: 1, offset: 0 },
+                    g: { func: 'sin', amp: -2, freq: 1, offset: 0 },
+                    xDomain: [0, 360],
+                    yDomain: [-3, 3]
                 }
             },
 
@@ -738,7 +949,7 @@
                 funcType: 'linear',
                 topic: 'reflection',
                 category: 'Linear Function Transformations',
-                questionText: 'Let $f(x) = 2x + 3$. If $g(x)$ is obtained by first reflecting $y = f(x)$ in the y-axis and then shifting downwards by 2 units, express $g(x)$ in terms of $x$.',
+                questionText: 'Let $f(x) = 2x + 3$. If $g(x)$ is obtained by first reflecting $y = f(x)$ with respect to the y-axis and then translating downwards by 2 units, express $g(x)$ in terms of $x$.',
                 options: [
                     'A. $g(x) = -2x + 1$',
                     'B. $g(x) = -2x + 5$',
@@ -746,7 +957,7 @@
                     'D. $g(x) = -2x - 1$'
                 ],
                 correctIndex: 0,
-                solution: '1. Reflection in y-axis: replace $x$ with $-x$, giving $f(-x) = 2(-x) + 3 = -2x + 3$.<br>2. Shift DOWN by 2 units: subtract 2, giving $g(x) = -2x + 3 - 2 = -2x + 1$.',
+                solution: '1. Reflection with respect to y-axis: replace $x$ with $-x$, giving $f(-x) = 2(-x) + 3 = -2x + 3$.<br>2. Translate DOWNWARDS by 2 units: subtract 2, giving $g(x) = -2x + 3 - 2 = -2x + 1$.',
                 drawParams: {
                     type: 'linear',
                     f: { m: 2, c: 3 },
@@ -754,121 +965,133 @@
                     xDomain: [-4, 4],
                     yDomain: [-5, 7]
                 }
+            },
+            {
+                id: 'q_lin_2',
+                funcType: 'linear',
+                topic: 'translation',
+                category: 'Linear Parallel Translation',
+                questionText: 'The line $y = f(x) = 3x - 4$ is translated rightwards by 2 units to form $g(x)$. What is the y-intercept of $g(x)$?',
+                options: [
+                    'A. $(0, -10)$',
+                    'B. $(0, -2)$',
+                    'C. $(0, -6)$',
+                    'D. $(0, 2)$'
+                ],
+                correctIndex: 0,
+                solution: 'Replacing $x$ with $x - 2$ gives $g(x) = 3(x - 2) - 4 = 3x - 6 - 4 = 3x - 10$. The y-intercept is at $(0, -10)$.',
+                drawParams: {
+                    type: 'linear',
+                    f: { m: 3, c: -4 },
+                    g: { m: 3, c: -10 },
+                    xDomain: [-2, 5],
+                    yDomain: [-12, 6]
+                }
             }
         ];
 
-        window.onload = function() {
-            renderKaTeX();
-            updateSandbox();
+        /**
+         * Takes a question object, shuffles its choice list randomly,
+         * re-assigns A., B., C., D. prefixes, and updates correctIndex.
+         */
+        function shuffleQuestionOptions(question) {
+            const q = JSON.parse(JSON.stringify(question));
             
-            // Canvas resize observer
-            window.addEventListener('resize', () => {
-                if (currentView === 'drill-view') {
-                    renderDrillGraph();
-                } else if (currentView === 'sandbox-view') {
-                    updateSandbox();
-                }
-            });
-        };
-
-        function renderKaTeX() {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false}
-                ],
-                throwOnError: false
-            });
-        }
-
-        function switchView(viewId) {
-            document.getElementById('home-view').classList.add('hidden');
-            document.getElementById('drill-view').classList.add('hidden');
-            document.getElementById('sandbox-view').classList.add('hidden');
-            document.getElementById('cheatsheet-view').classList.add('hidden');
-
-            document.getElementById(viewId).classList.remove('hidden');
-            currentView = viewId;
-
-            if (viewId === 'sandbox-view') {
-                updateSandbox();
-            } else if (viewId === 'drill-view') {
-                renderDrillGraph();
+            // Extract raw text without A., B., C., D. labels
+            const rawOptions = q.options.map(opt => opt.replace(/^[A-D]\.\s*/, ''));
+            const correctText = rawOptions[q.correctIndex];
+            
+            // Fisher-Yates Shuffle
+            for (let i = rawOptions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [rawOptions[i], rawOptions[j]] = [rawOptions[j], rawOptions[i]];
             }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Find new index of the correct answer
+            q.correctIndex = rawOptions.indexOf(correctText);
+            
+            // Re-apply A., B., C., D. labels
+            const labels = ['A', 'B', 'C', 'D'];
+            q.options = rawOptions.map((opt, idx) => `${labels[idx]}. ${opt}`);
+            
+            return q;
         }
 
-        function confirmGoHome() {
-            if (isExamMode && examTimeRemaining > 0) {
-                if (confirm('An exam session is currently active. Are you sure you want to quit?')) {
-                    clearInterval(examTimerInterval);
-                    isExamMode = false;
-                    switchView('home-view');
-                }
-            } else {
-                switchView('home-view');
+        /**
+         * Creates a parametrically distinct variant of a base question
+         * to guarantee uniqueness when selected count exceeds base question pool size.
+         */
+        function generateUniqueVariant(baseQ, seed) {
+            const q = JSON.parse(JSON.stringify(baseQ));
+            q.id = `${baseQ.id}_var_${seed}`;
+            
+            const offset = seed + 1;
+            
+            if (q.funcType === 'quadratic') {
+                const hShift = offset % 2 === 0 ? offset : -offset;
+                const kShift = (offset * 2) % 5 + 1;
+                q.questionText = `[Variant ${seed}] The graph of $y = f(x) = (x - ${offset})^2 - 1$ is translated ${hShift > 0 ? 'rightwards' : 'leftwards'} by ${Math.abs(hShift)} units and UPWARDS by ${kShift} units to form $y = g(x)$. Find $g(x)$.`;
+                const newH = offset + hShift;
+                const newK = -1 + kShift;
+                q.options = [
+                    `A. $g(x) = (x - ${newH})^2 + ${newK}$`,
+                    `B. $g(x) = (x + ${newH})^2 + ${newK}$`,
+                    `C. $g(x) = (x - ${newH})^2 - ${newK}$`,
+                    `D. $g(x) = (x - ${newH + 2})^2 + ${newK}$`
+                ];
+                q.correctIndex = 0;
+                q.solution = `1. Horizontal translation by ${hShift}: replace $x$ with $x - (${hShift})$, giving $(x - ${newH})^2 - 1$.<br>2. Vertical translation UPWARDS by ${kShift}: add ${kShift}, giving $g(x) = (x - ${newH})^2 + ${newK}$.`;
+                q.drawParams.f = { a: 1, h: offset, k: -1 };
+                q.drawParams.g = { a: 1, h: newH, k: newK };
+            } else if (q.funcType === 'linear') {
+                const m = 2 + (seed % 3);
+                const c = 1 + seed;
+                const shift = offset;
+                q.questionText = `[Variant ${seed}] Let $f(x) = ${m}x + ${c}$. If $g(x)$ is formed by translating $y = f(x)$ UPWARDS by ${shift} units, find $g(0)$.`;
+                q.options = [
+                    `A. $g(0) = ${c + shift}$`,
+                    `B. $g(0) = ${c - shift}$`,
+                    `C. $g(0) = ${m + shift}$`,
+                    `D. $g(0) = ${c}$`
+                ];
+                q.correctIndex = 0;
+                q.solution = `$g(x) = f(x) + ${shift} = ${m}x + ${c} + ${shift} = ${m}x + ${c + shift}$. Thus $g(0) = ${c + shift}$.`;
+                q.drawParams.f = { m: m, c: c };
+                q.drawParams.g = { m: m, c: c + shift };
+            } else if (q.funcType === 'exponential') {
+                const k = offset;
+                q.questionText = `[Variant ${seed}] If $f(x) = 2^x$ is translated UPWARDS by ${k} units to form $g(x)$, what is the value of $g(2)$?`;
+                q.options = [
+                    `A. $g(2) = ${4 + k}$`,
+                    `B. $g(2) = ${2 + k}$`,
+                    `C. $g(2) = ${8 + k}$`,
+                    `D. $g(2) = ${4 - k}$`
+                ];
+                q.correctIndex = 0;
+                q.solution = `$g(x) = 2^x + ${k}$. Substituting $x = 2$ gives $g(2) = 2^2 + ${k} = 4 + ${k} = ${4 + k}$.`;
+                q.drawParams.f = { base: 2, scale: 1, h: 0, k: 0, expSign: 1 };
+                q.drawParams.g = { base: 2, scale: 1, h: 0, k: k, expSign: 1 };
+            } else if (q.funcType === 'trig') {
+                const mult = seed + 2;
+                q.questionText = `[Variant ${seed}] What is the period of $g(x) = \\cos(${mult}x)$?`;
+                const p = Math.round(360 / mult);
+                q.options = [
+                    `A. $${p}^\\circ$`,
+                    `B. $${p * 2}^\\circ$`,
+                    `C. $360^\\circ$`,
+                    `D. $180^\\circ$`
+                ];
+                q.correctIndex = 0;
+                q.solution = `Period = $\\frac{360^\\circ}{${mult}} = ${p}^\\circ$.`;
+                q.drawParams.f = { func: 'cos', amp: 1, freq: 1, offset: 0 };
+                q.drawParams.g = { func: 'cos', amp: 1, freq: mult, offset: 0 };
             }
-        }
 
-        // Selection Handlers
-        function selectFuncFilter(type) {
-            selectedFuncFilter = type;
-            document.querySelectorAll('.func-btn').forEach(btn => {
-                btn.className = 'func-btn p-2.5 rounded-lg border-2 border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:border-indigo-300 transition-all';
-            });
-            const activeBtn = document.getElementById(`func-btn-${type}`);
-            if (activeBtn) {
-                activeBtn.className = 'func-btn p-2.5 rounded-lg border-2 border-indigo-600 bg-indigo-50 text-indigo-950 font-semibold text-xs text-center transition-all';
-            }
-        }
-
-        function selectTopic(topic) {
-            selectedTopic = topic;
-            document.querySelectorAll('.topic-btn').forEach(btn => {
-                btn.className = 'topic-btn p-3 rounded-xl border-2 border-slate-200 hover:border-indigo-300 bg-white text-left transition-all flex items-start space-x-3';
-            });
-            const activeBtn = document.getElementById(`topic-btn-${topic}`);
-            if (activeBtn) {
-                activeBtn.className = 'topic-btn p-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 text-left transition-all flex items-start space-x-3';
-            }
-        }
-
-        function selectQuestionCount(count) {
-            selectedQCount = count;
-            document.querySelectorAll('.count-btn').forEach(btn => {
-                btn.className = 'count-btn px-4 py-2 text-sm font-semibold rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50';
-            });
-            event.target.className = 'count-btn px-4 py-2 text-sm font-semibold rounded-lg border border-indigo-600 bg-indigo-600 text-white shadow-sm';
-        }
-
-        function startPracticeMode() {
-            isExamMode = false;
-            document.getElementById('drill-mode-badge').innerText = 'Practice Drill';
-            document.getElementById('drill-mode-badge').className = 'px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-bold uppercase tracking-wider';
-            document.getElementById('exam-timer-container').classList.add('hidden');
-
-            prepareQuestionQueue();
-            switchView('drill-view');
-            loadQuestion(0);
-        }
-
-        function startExamMode() {
-            isExamMode = true;
-            document.getElementById('drill-mode-badge').innerText = 'DSE Exam Simulation';
-            document.getElementById('drill-mode-badge').className = 'px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider';
-            document.getElementById('exam-timer-container').classList.remove('hidden');
-
-            selectedFuncFilter = 'all';
-            selectedTopic = 'all';
-            selectedQCount = 20;
-
-            prepareQuestionQueue();
-            startExamTimer();
-            switchView('drill-view');
-            loadQuestion(0);
+            return q;
         }
 
         function prepareQuestionQueue() {
+            // Filter questions by user selection
             let pool = masterQuestions.filter(q => {
                 const matchFunc = (selectedFuncFilter === 'all' || q.funcType === selectedFuncFilter);
                 const matchTopic = (selectedTopic === 'all' || q.topic === selectedTopic);
@@ -877,13 +1100,24 @@
 
             if (pool.length === 0) pool = masterQuestions;
 
-            // Duplicate/shuffle to match requested count
+            // Shuffle matching base questions
+            let shuffledPool = [...pool].sort(() => Math.random() - 0.5);
+
             questionsList = [];
+            let variantCounter = 1;
+
+            // Build exact count of UNIQUE questions without repetition
             while (questionsList.length < selectedQCount) {
-                const shuffled = [...pool].sort(() => Math.random() - 0.5);
-                questionsList.push(...shuffled);
+                if (shuffledPool.length > 0) {
+                    const baseQ = shuffledPool.pop();
+                    questionsList.push(shuffleQuestionOptions(baseQ));
+                } else {
+                    // Generate unique parametric variant if base pool runs out
+                    const templateQ = pool[questionsList.length % pool.length];
+                    const variantQ = generateUniqueVariant(templateQ, variantCounter++);
+                    questionsList.push(shuffleQuestionOptions(variantQ));
+                }
             }
-            questionsList = questionsList.slice(0, selectedQCount);
 
             currentQIndex = 0;
             userAnswers = {};
@@ -1278,6 +1512,17 @@
             document.getElementById('slider-b').value = 1;
             updateSandbox();
         }
+
+        window.onload = function() {
+            renderKaTeX();
+            window.addEventListener('resize', () => {
+                if (currentView === 'drill-view') {
+                    renderDrillGraph();
+                } else if (currentView === 'sandbox-view') {
+                    updateSandbox();
+                }
+            });
+        };
     </script>
 </body>
 </html>
