@@ -568,6 +568,32 @@
         let examTimerInterval = null;
         let examTimeRemaining = 35 * 60; // 35 minutes
 
+        // Math LaTeX Formatting Helpers (handles 0 shifts and coefficients cleanly)
+        function formatSignVal(val, showPlus = true) {
+            if (val === 0) return '';
+            if (val > 0) return showPlus ? ` + ${val}` : `${val}`;
+            return ` - ${Math.abs(val)}`;
+        }
+
+        function formatXShift(xVar, h) {
+            if (h === 0) return xVar;
+            if (h > 0) return `${xVar} - ${h}`;
+            return `${xVar} + ${Math.abs(h)}`;
+        }
+
+        function formatCoeff(a, isLeading = true) {
+            if (a === 1) return isLeading ? '' : '1';
+            if (a === -1) return '-';
+            return `${a}`;
+        }
+
+        function formatQuadraticExpr(h, k, a = 1) {
+            let aStr = formatCoeff(a, true);
+            let xTerm = h === 0 ? 'x^2' : `(${formatXShift('x', h)})^2`;
+            let kStr = formatSignVal(k, true);
+            return `${aStr}${xTerm}${kStr}`;
+        }
+
         // View & Navigation Handlers
         function switchView(viewId) {
             document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
@@ -1028,26 +1054,39 @@
             const offset = seed + 1;
             
             if (q.funcType === 'quadratic') {
-                const hShift = offset % 2 === 0 ? offset : -offset;
+                // Ensure net horizontal shift does not collapse trivially to 0, or handle 0 cleanly
+                const hShift = offset % 2 === 0 ? offset : -(offset + 1);
                 const kShift = (offset * 2) % 5 + 1;
-                q.questionText = `[Variant ${seed}] The graph of $y = f(x) = (x - ${offset})^2 - 1$ is translated ${hShift > 0 ? 'rightwards' : 'leftwards'} by ${Math.abs(hShift)} units and UPWARDS by ${kShift} units to form $y = g(x)$. Find $g(x)$.`;
                 const newH = offset + hShift;
                 const newK = -1 + kShift;
+                
+                const origHStr = formatXShift('x', offset);
+                const shiftDirection = hShift > 0 ? 'rightwards' : 'leftwards';
+                const absH = Math.abs(hShift);
+                
+                q.questionText = `[Variant ${seed}] The graph of $y = f(x) = (${origHStr})^2 - 1$ is translated ${shiftDirection} by ${absH} units and UPWARDS by ${kShift} units to form $y = g(x)$. Find $g(x)$.`;
+                
+                // Construct 4 strictly distinct options with zero-aware math formatting
+                const h1 = newH;
+                const h2 = newH === 0 ? 2 : -newH;
+                const h3 = newH === 0 ? -2 : newH + 2;
+                const h4 = newH + 3;
+
                 q.options = [
-                    `A. $g(x) = (x - ${newH})^2 + ${newK}$`,
-                    `B. $g(x) = (x + ${newH})^2 + ${newK}$`,
-                    `C. $g(x) = (x - ${newH})^2 - ${newK}$`,
-                    `D. $g(x) = (x - ${newH + 2})^2 + ${newK}$`
+                    `A. $g(x) = ${formatQuadraticExpr(h1, newK)}$`,
+                    `B. $g(x) = ${formatQuadraticExpr(h2, newK)}$`,
+                    `C. $g(x) = ${formatQuadraticExpr(h1, -newK)}$`,
+                    `D. $g(x) = ${formatQuadraticExpr(h4, newK)}$`
                 ];
                 q.correctIndex = 0;
-                q.solution = `1. Horizontal translation by ${hShift}: replace $x$ with $x - (${hShift})$, giving $(x - ${newH})^2 - 1$.<br>2. Vertical translation UPWARDS by ${kShift}: add ${kShift}, giving $g(x) = (x - ${newH})^2 + ${newK}$.`;
+                q.solution = `1. Horizontal translation by ${hShift}: replace $x$ with $(${formatXShift('x', hShift)})$, giving $(${formatXShift('x', newH)})^2 - 1$.<br>2. Vertical translation UPWARDS by ${kShift}: add ${kShift}, giving $g(x) = ${formatQuadraticExpr(newH, newK)}$.`;
                 q.drawParams.f = { a: 1, h: offset, k: -1 };
                 q.drawParams.g = { a: 1, h: newH, k: newK };
             } else if (q.funcType === 'linear') {
                 const m = 2 + (seed % 3);
                 const c = 1 + seed;
                 const shift = offset;
-                q.questionText = `[Variant ${seed}] Let $f(x) = ${m}x + ${c}$. If $g(x)$ is formed by translating $y = f(x)$ UPWARDS by ${shift} units, find $g(0)$.`;
+                q.questionText = `[Variant ${seed}] Let $f(x) = ${m}x${formatSignVal(c)}$. If $g(x)$ is formed by translating $y = f(x)$ UPWARDS by ${shift} units, find $g(0)$.`;
                 q.options = [
                     `A. $g(0) = ${c + shift}$`,
                     `B. $g(0) = ${c - shift}$`,
@@ -1055,7 +1094,7 @@
                     `D. $g(0) = ${c}$`
                 ];
                 q.correctIndex = 0;
-                q.solution = `$g(x) = f(x) + ${shift} = ${m}x + ${c} + ${shift} = ${m}x + ${c + shift}$. Thus $g(0) = ${c + shift}$.`;
+                q.solution = `$g(x) = f(x) + ${shift} = ${m}x${formatSignVal(c)} + ${shift} = ${m}x${formatSignVal(c + shift)}$. Thus $g(0) = ${c + shift}$.`;
                 q.drawParams.f = { m: m, c: c };
                 q.drawParams.g = { m: m, c: c + shift };
             } else if (q.funcType === 'exponential') {
@@ -1068,7 +1107,7 @@
                     `D. $g(2) = ${4 - k}$`
                 ];
                 q.correctIndex = 0;
-                q.solution = `$g(x) = 2^x + ${k}$. Substituting $x = 2$ gives $g(2) = 2^2 + ${k} = 4 + ${k} = ${4 + k}$.`;
+                q.solution = `$g(x) = 2^x${formatSignVal(k)}$. Substituting $x = 2$ gives $g(2) = 2^2 + ${k} = 4 + ${k} = ${4 + k}$.`;
                 q.drawParams.f = { base: 2, scale: 1, h: 0, k: 0, expSign: 1 };
                 q.drawParams.g = { base: 2, scale: 1, h: 0, k: k, expSign: 1 };
             } else if (q.funcType === 'trig') {
@@ -1436,28 +1475,43 @@
             document.getElementById('val-a').innerText = a;
             document.getElementById('val-b').innerText = b;
 
-            // Formulate LaTeX String
+            // Formulate KaTeX String cleanly without 0-shift artifacts
             let fxKaTeX = '';
             let gxKaTeX = '';
 
+            const aCoeff = formatCoeff(a, true);
+            const bCoeff = formatCoeff(b, true);
+            const kSign = formatSignVal(k, true);
+
             if (funcType === 'quadratic') {
                 fxKaTeX = 'f(x) = x^2';
-                gxKaTeX = `g(x) = ${a !== 1 ? a : ''} (${b !== 1 ? b : ''}(x ${h >= 0 ? '- ' + h : '+ ' + Math.abs(h)}))^2 ${k >= 0 ? '+ ' + k : '- ' + Math.abs(k)}`;
+                const inner = b === 1 ? formatXShift('x', h) : (h === 0 ? `${bCoeff}x` : `${bCoeff}(${formatXShift('x', h)})`);
+                const sqTerm = (h === 0 && b === 1) ? 'x^2' : `(${inner})^2`;
+                gxKaTeX = `g(x) = ${aCoeff}${sqTerm}${kSign}`;
             } else if (funcType === 'linear') {
                 fxKaTeX = 'f(x) = 2x + 1';
-                gxKaTeX = `g(x) = ${a}(2(${b}(x - ${h})) + 1) + ${k}`;
+                const innerX = b === 1 ? formatXShift('x', h) : (h === 0 ? `${bCoeff}x` : `${bCoeff}(${formatXShift('x', h)})`);
+                const linearInner = h === 0 && b === 1 ? '2x + 1' : `2(${innerX}) + 1`;
+                const aPrefix = a === 1 ? '' : (a === -1 ? '-' : `${a}`);
+                gxKaTeX = `g(x) = ${aPrefix}${a === 1 || a === -1 ? '' : '\\cdot '}${a !== 1 ? `(${linearInner})` : linearInner}${kSign}`;
             } else if (funcType === 'exponential') {
                 fxKaTeX = 'f(x) = 2^x';
-                gxKaTeX = `g(x) = ${a} \\cdot 2^{${b}(x - ${h})} + ${k}`;
+                const aMult = a === 1 ? '' : (a === -1 ? '-' : `${a} \\cdot `);
+                const expArg = b === 1 ? formatXShift('x', h) : (h === 0 ? `${bCoeff}x` : `${bCoeff}(${formatXShift('x', h)})`);
+                gxKaTeX = `g(x) = ${aMult}2^{${expArg}}${kSign}`;
             } else if (funcType === 'logarithmic') {
                 fxKaTeX = 'f(x) = \\log_2(x)';
-                gxKaTeX = `g(x) = ${a} \\cdot \\log_2(${b}(x - ${h})) + ${k}`;
+                const aMult = a === 1 ? '' : (a === -1 ? '-' : `${a} \\cdot `);
+                const logArg = b === 1 ? (h === 0 ? 'x' : `(${formatXShift('x', h)})`) : (h === 0 ? `${bCoeff}x` : `${bCoeff}(${formatXShift('x', h)})`);
+                gxKaTeX = `g(x) = ${aMult}\\log_2(${logArg})${kSign}`;
             } else if (funcType === 'sine') {
                 fxKaTeX = 'f(x) = \\sin(x)';
-                gxKaTeX = `g(x) = ${a} \\cdot \\sin(${b}(x - ${h})) + ${k}`;
+                const arg = b === 1 ? (h === 0 ? 'x' : formatXShift('x', h)) : (h === 0 ? `${bCoeff}x` : `${bCoeff}(${formatXShift('x', h)})`);
+                gxKaTeX = `g(x) = ${aCoeff}\\sin(${arg})${kSign}`;
             } else if (funcType === 'cosine') {
                 fxKaTeX = 'f(x) = \\cos(x)';
-                gxKaTeX = `g(x) = ${a} \\cdot \\cos(${b}(x - ${h})) + ${k}`;
+                const arg = b === 1 ? (h === 0 ? 'x' : formatXShift('x', h)) : (h === 0 ? `${bCoeff}x` : `${bCoeff}(${formatXShift('x', h)})`);
+                gxKaTeX = `g(x) = ${aCoeff}\\cos(${arg})${kSign}`;
             }
 
             document.getElementById('sandbox-fx-katex').innerHTML = `$${fxKaTeX}$`;
